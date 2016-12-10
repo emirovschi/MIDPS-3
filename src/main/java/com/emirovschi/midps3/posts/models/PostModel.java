@@ -42,4 +42,59 @@ public class PostModel
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<CommentModel> comments;
+
+    public long getId()
+    {
+        return id;
+    }
+
+    public String getTitle()
+    {
+        return title;
+    }
+
+    public void setTitle(final String title)
+    {
+        this.title = title;
+    }
+
+    public Blob getImage()
+    {
+        return image;
+    }
+
+    public void setImage(final Blob image)
+    {
+        this.image = image;
+    }
+
+    public List<TagModel> getTags()
+    {
+        return tags;
+    }
+
+    public void setTags(final List<TagModel> tags)
+    {
+        this.tags = tags;
+    }
+
+    public Map<UserModel, Integer> getVotes()
+    {
+        return votes;
+    }
+
+    public void setVotes(final Map<UserModel, Integer> votes)
+    {
+        this.votes = votes;
+    }
+
+    public List<CommentModel> getComments()
+    {
+        return comments;
+    }
+
+    public void setComments(final List<CommentModel> comments)
+    {
+        this.comments = comments;
+    }
 }
