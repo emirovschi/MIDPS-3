@@ -1,4 +1,4 @@
-package com.emirovschi.midps3.roles;
+package com.emirovschi.midps3.users.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

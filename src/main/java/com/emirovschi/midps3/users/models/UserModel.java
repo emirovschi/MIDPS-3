@@ -1,7 +1,5 @@
 package com.emirovschi.midps3.users.models;
 
-import com.emirovschi.midps3.roles.RoleModel;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

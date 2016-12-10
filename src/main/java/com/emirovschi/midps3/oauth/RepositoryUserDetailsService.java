@@ -1,6 +1,6 @@
 package com.emirovschi.midps3.oauth;
 
-import com.emirovschi.midps3.roles.RoleModel;
+import com.emirovschi.midps3.users.models.RoleModel;
 import com.emirovschi.midps3.users.UserRepository;
 import com.emirovschi.midps3.users.models.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
