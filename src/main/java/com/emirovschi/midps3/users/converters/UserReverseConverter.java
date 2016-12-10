@@ -8,7 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserConverter implements Converter<UserDTO, UserModel>
+public class UserReverseConverter implements Converter<UserDTO, UserModel>
 {
     @Autowired
     private PasswordEncoder passwordEncoder;
