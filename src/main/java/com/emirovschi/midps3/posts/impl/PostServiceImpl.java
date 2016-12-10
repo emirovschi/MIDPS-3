@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -68,5 +69,21 @@ public class PostServiceImpl implements PostService
     {
         post.setComments(new ArrayList<>());
         return post.getComments();
+    }
+
+    @Override
+    public PostModel create(final String title, final Blob image)
+    {
+        final PostModel post = new PostModel();
+        post.setTitle(title);
+        post.setImage(image);
+        postRepository.save(post);
+        return post;
+    }
+
+    @Override
+    public void delete(final PostModel post)
+    {
+        postRepository.delete(post);
     }
 }
