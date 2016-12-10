@@ -1,4 +1,4 @@
-package com.emirovschi.midps3.users;
+package com.emirovschi.midps3.users.models;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -33,6 +33,11 @@ public class UserModel
     public String getEmail()
     {
         return email;
+    }
+
+    public void setEmail(final String email)
+    {
+        this.email = email;
     }
 
     public String getName()

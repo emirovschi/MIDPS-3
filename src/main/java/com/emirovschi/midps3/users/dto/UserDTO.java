@@ -1,4 +1,4 @@
-package com.emirovschi.midps3.users;
+package com.emirovschi.midps3.users.dto;
 
 import java.util.List;
 
