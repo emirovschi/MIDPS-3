@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.approval.ApprovalStore;
 import org.springframework.security.oauth2.provider.approval.TokenApprovalStore;
@@ -25,10 +26,13 @@ public class OAuth2SecurityConfiguration extends WebSecurityConfigurerAdapter
     private ClientDetailsService clientDetailsService;
 
     @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
     public void globalUserDetails(final AuthenticationManagerBuilder auth,
                                   final UserDetailsService userDetailsService) throws Exception
     {
-        auth.userDetailsService(userDetailsService);
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
 
     @Override

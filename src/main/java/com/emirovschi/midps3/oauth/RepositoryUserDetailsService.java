@@ -1,8 +1,8 @@
 package com.emirovschi.midps3.oauth;
 
 import com.emirovschi.midps3.roles.RoleModel;
-import com.emirovschi.midps3.users.models.UserModel;
 import com.emirovschi.midps3.users.UserRepository;
+import com.emirovschi.midps3.users.models.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,6 +25,7 @@ public class RepositoryUserDetailsService implements UserDetailsService
     private UserRepository userRepository;
 
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(final String email) throws UsernameNotFoundException
     {
         return ofNullable(userRepository.findByEmail(email)).map(this::getUser)
