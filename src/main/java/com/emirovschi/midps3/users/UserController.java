@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
-@RestController("/users")
+@RestController
+@RequestMapping("/users")
 public class UserController
 {
     @Autowired
