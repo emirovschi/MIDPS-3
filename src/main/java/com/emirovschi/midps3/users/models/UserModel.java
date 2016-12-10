@@ -1,12 +1,14 @@
 package com.emirovschi.midps3.users.models;
 
-import javax.persistence.CollectionTable;
+import com.emirovschi.midps3.roles.RoleModel;
+
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.util.List;
 
@@ -26,9 +28,9 @@ public class UserModel
 
     private String password;
 
-    @ElementCollection
-    @CollectionTable(name="roles", joinColumns=@JoinColumn(name="userId"))
-    private List<String> roles;
+    @ManyToMany
+    @JoinTable(name="userRoles", joinColumns=@JoinColumn(name="user"), inverseJoinColumns=@JoinColumn(name="role"))
+    private List<RoleModel> roles;
 
     public String getEmail()
     {
@@ -60,12 +62,12 @@ public class UserModel
         this.password = password;
     }
 
-    public List<String> getRoles()
+    public List<RoleModel> getRoles()
     {
         return roles;
     }
 
-    public void setRoles(final List<String> roles)
+    public void setRoles(final List<RoleModel> roles)
     {
         this.roles = roles;
     }
