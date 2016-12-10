@@ -1,6 +1,7 @@
 package com.emirovschi.midps3.oauth;
 
-import com.emirovschi.midps3.users.UserModel;
+import com.emirovschi.midps3.roles.RoleModel;
+import com.emirovschi.midps3.users.models.UserModel;
 import com.emirovschi.midps3.users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -36,6 +37,9 @@ public class RepositoryUserDetailsService implements UserDetailsService
 
     private List<? extends GrantedAuthority> getAuthorities(final UserModel user)
     {
-        return user.getRoles().stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        return user.getRoles().stream()
+                .map(RoleModel::getName)
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
     }
 }

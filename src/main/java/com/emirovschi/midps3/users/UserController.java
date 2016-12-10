@@ -1,11 +1,9 @@
 package com.emirovschi.midps3.users;
 
-import com.emirovschi.midps3.validators.GenericValidator;
+import com.emirovschi.midps3.users.dto.UserDTO;
+import com.emirovschi.midps3.users.exceptions.UserAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,18 +16,10 @@ public class UserController
     @Autowired
     private UserFacade userFacade;
 
-    @Autowired
-    private GenericValidator<UserDTO> userValidator;
-
     @RequestMapping(method = POST)
-    public void register(@Validated @ModelAttribute("registerUser") @RequestBody UserDTO user)
+    public void register(@Validated @RequestBody final UserDTO user)
+            throws UserAlreadyExistsException
     {
-
-    }
-
-    @InitBinder(value = "registerUser")
-    public void dataBinding(WebDataBinder binder)
-    {
-        binder.addValidators(userValidator);
+        userFacade.register(user);
     }
 }

@@ -1,13 +1,23 @@
 package com.emirovschi.midps3.users.dto;
 
-import java.util.List;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 public class UserDTO
 {
+    @NotNull
+    @Size(min = 1)
+    @Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")
     private String email;
+
+    @NotNull
+    @Size(min = 3, max = 100)
     private String name;
+
+    @NotNull
+    @Size(min = 6, max = 100)
     private String password;
-    private List<String> roles;
 
     public String getEmail()
     {
@@ -37,15 +47,5 @@ public class UserDTO
     public void setPassword(final String password)
     {
         this.password = password;
-    }
-
-    public List<String> getRoles()
-    {
-        return roles;
-    }
-
-    public void setRoles(final List<String> roles)
-    {
-        this.roles = roles;
     }
 }

@@ -1,9 +1,11 @@
 package com.emirovschi.midps3.users;
 
-import org.springframework.data.repository.Repository;
+import com.emirovschi.midps3.users.models.UserModel;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-@org.springframework.stereotype.Repository
-public interface UserRepository extends Repository<UserModel, Long>
+@Repository
+public interface UserRepository extends CrudRepository<UserModel, Long>
 {
     UserModel findByEmail(final String email);
 }
