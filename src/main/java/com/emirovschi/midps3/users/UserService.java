@@ -9,4 +9,6 @@ public interface UserService
     Optional<UserModel> getUserByEmail(String email);
 
     void save(UserModel user);
+
+    Optional<UserModel> getSessionUser();
 }
