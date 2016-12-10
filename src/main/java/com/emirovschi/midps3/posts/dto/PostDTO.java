@@ -4,10 +4,20 @@ import java.util.List;
 
 public class PostDTO
 {
+    private long id;
     private String title;
-    private byte[] image;
     private int score;
     private List<CommentDTO> comments;
+
+    public long getId()
+    {
+        return id;
+    }
+
+    public void setId(final long id)
+    {
+        this.id = id;
+    }
 
     public String getTitle()
     {
@@ -17,16 +27,6 @@ public class PostDTO
     public void setTitle(final String title)
     {
         this.title = title;
-    }
-
-    public byte[] getImage()
-    {
-        return image;
-    }
-
-    public void setImage(final byte[] image)
-    {
-        this.image = image;
     }
 
     public int getScore()
