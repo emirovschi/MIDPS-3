@@ -1,0 +1,46 @@
+package com.emirovschi.midps3.posts.impl;
+
+import com.emirovschi.midps3.posts.TagRepository;
+import com.emirovschi.midps3.posts.TagService;
+import com.emirovschi.midps3.posts.models.TagModel;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import static java.util.Optional.ofNullable;
+
+@Service
+public class TagServiceImpl implements TagService
+{
+    @Autowired
+    private TagRepository tagRepository;
+
+    @Override
+    public List<TagModel> save(final List<String> tags)
+    {
+        return tags.stream().map(this::getOrSave).collect(Collectors.toList());
+    }
+
+    private TagModel getOrSave(final String tagName)
+    {
+        return ofNullable(tagRepository.findByName(tagName)).orElseGet(() -> createAndSave(tagName));
+    }
+
+    private TagModel createAndSave(final String tagName)
+    {
+        final TagModel tag = new TagModel();
+        tag.setName(tagName);
+        tagRepository.save(tag);
+        return tag;
+    }
+
+    @Override
+    public Set<TagModel> getTags(final Set<String> tags)
+    {
+        return tags.stream().map(tagRepository::findByName).filter(Objects::nonNull).collect(Collectors.toSet());
+    }
+}
