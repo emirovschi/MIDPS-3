@@ -9,9 +9,11 @@ import com.emirovschi.midps3.tags.models.TagModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class TagFacadeImpl implements TagFacade
 {
     @Autowired
