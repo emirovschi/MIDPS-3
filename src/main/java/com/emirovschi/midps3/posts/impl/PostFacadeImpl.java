@@ -3,6 +3,7 @@ package com.emirovschi.midps3.posts.impl;
 import com.emirovschi.midps3.converters.Converter;
 import com.emirovschi.midps3.posts.PostFacade;
 import com.emirovschi.midps3.posts.PostService;
+import com.emirovschi.midps3.posts.dto.ImageDTO;
 import com.emirovschi.midps3.tags.TagService;
 import com.emirovschi.midps3.posts.dto.CommentDTO;
 import com.emirovschi.midps3.posts.dto.PageDTO;
@@ -46,6 +47,9 @@ public class PostFacadeImpl implements PostFacade
     @Autowired
     private Converter<Page<PostModel>, PageDTO<PostDTO>> postPageConverter;
 
+    @Autowired
+    private Converter<PostModel, ImageDTO> imageConverter;
+
     @Override
     public PageDTO<PostDTO> search(final String title, final Set<String> tags, final Set<String> users, final Pageable pageable)
     {
@@ -58,6 +62,12 @@ public class PostFacadeImpl implements PostFacade
     public PostDTO getPost(final long id)
     {
         return postFullConverter.convert(postService.getPostById(id));
+    }
+
+    @Override
+    public ImageDTO getPostImage(final long id)
+    {
+        return imageConverter.convert(postService.getPostById(id));
     }
 
     @Override
@@ -86,13 +96,14 @@ public class PostFacadeImpl implements PostFacade
 
     @Override
     @Transactional
-    public PostDTO create(final String title, final List<String> tags, final byte[] image) throws BadImageException
+    public PostDTO create(final String title, final List<String> tags, final String imageType, final byte[] image)
     {
         try
         {
             final PostModel post = new PostModel();
             post.setTitle(title);
             post.setTags(tagService.save(tags.stream().distinct().collect(Collectors.toList())));
+            post.setImageType(imageType);
             post.setImage(new SerialBlob(image));
             post.setUser(userService.getSessionUser());
             postService.save(post);

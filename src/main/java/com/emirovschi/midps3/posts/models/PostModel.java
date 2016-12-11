@@ -33,6 +33,8 @@ public class PostModel
     @Lob
     private Blob image;
 
+    private String imageType;
+
     @ManyToMany
     @JoinTable(name="postTags", joinColumns=@JoinColumn(name="post"), inverseJoinColumns=@JoinColumn(name="tag"))
     private List<TagModel> tags;
@@ -72,6 +74,16 @@ public class PostModel
     public void setImage(final Blob image)
     {
         this.image = image;
+    }
+
+    public String getImageType()
+    {
+        return imageType;
+    }
+
+    public void setImageType(final String imageType)
+    {
+        this.imageType = imageType;
     }
 
     public List<TagModel> getTags()

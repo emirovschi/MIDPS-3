@@ -1,5 +1,5 @@
 package com.emirovschi.midps3.posts.exceptions;
 
-public class BadImageException extends Exception
+public class BadImageException extends RuntimeException
 {
 }

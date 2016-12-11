@@ -1,8 +1,13 @@
 package com.emirovschi.midps3.posts;
 
+import com.emirovschi.midps3.posts.dto.ImageDTO;
 import com.emirovschi.midps3.posts.dto.PostDTO;
 import com.emirovschi.midps3.posts.exceptions.BadImageException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,20 +33,31 @@ public class PostController
 
     @Secured("ROLE_USER")
     @RequestMapping(method = RequestMethod.POST)
-    public void create(@RequestParam final String title, @RequestParam final List<String> tags, @RequestParam final MultipartFile image) throws IOException, BadImageException
+    public PostDTO create(@RequestParam final String title, @RequestParam final List<String> tags, @RequestParam final MultipartFile image) throws IOException, BadImageException
     {
         if (!allowedContentTypes.contains(image.getContentType()))
         {
             throw new BadImageException();
         }
 
-        postFacade.create(title, tags, image.getBytes());
+        return postFacade.create(title, tags, image.getContentType(), image.getBytes());
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public PostDTO getPost(@PathVariable final long id)
     {
         return postFacade.getPost(id);
+    }
+
+    @RequestMapping(value = "/{id}/image", method = RequestMethod.GET, produces = {MediaType.IMAGE_GIF_VALUE, MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
+    public ResponseEntity<byte[]> getPostImage(@PathVariable final long id)
+    {
+        final ImageDTO image = postFacade.getPostImage(id);
+
+        final HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.setContentType(image.getType());
+
+        return new ResponseEntity<>(image.getImage(), responseHeaders, HttpStatus.OK);
     }
 
     @Secured("ROLE_USER")
