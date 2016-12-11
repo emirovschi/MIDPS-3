@@ -4,6 +4,7 @@ import com.emirovschi.midps3.tags.TagRepository;
 import com.emirovschi.midps3.tags.TagService;
 import com.emirovschi.midps3.tags.models.TagModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -46,13 +47,13 @@ public class TagServiceImpl implements TagService
     }
 
     @Override
-    public List<TagModel> getTagsSortedByPostsCount(final Pageable pageable)
+    public Page<TagModel> getTagsSortedByPostsCount(final Pageable pageable)
     {
         return tagRepository.findTagsSortedByPostCount(pageable);
     }
 
     @Override
-    public List<TagModel> getTagsSortedByVotesSum(final Pageable pageable)
+    public Page<TagModel> getTagsSortedByVotesSum(final Pageable pageable)
     {
         return tagRepository.findTagsSortedByVotesSum(pageable);
     }

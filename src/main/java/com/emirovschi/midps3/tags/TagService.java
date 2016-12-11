@@ -1,6 +1,7 @@
 package com.emirovschi.midps3.tags;
 
 import com.emirovschi.midps3.tags.models.TagModel;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public interface TagService
 
     Set<TagModel> getTags(Set<String> tags);
 
-    List<TagModel> getTagsSortedByPostsCount(Pageable pageable);
+    Page<TagModel> getTagsSortedByPostsCount(Pageable pageable);
 
-    List<TagModel> getTagsSortedByVotesSum(Pageable pageable);
+    Page<TagModel> getTagsSortedByVotesSum(Pageable pageable);
 }
