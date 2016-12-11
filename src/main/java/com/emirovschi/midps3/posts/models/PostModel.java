@@ -1,5 +1,6 @@
 package com.emirovschi.midps3.posts.models;
 
+import com.emirovschi.midps3.tags.models.TagModel;
 import com.emirovschi.midps3.users.models.UserModel;
 
 import javax.persistence.CascadeType;

@@ -1,6 +1,6 @@
-package com.emirovschi.midps3.posts;
+package com.emirovschi.midps3.tags;
 
-import com.emirovschi.midps3.posts.models.TagModel;
+import com.emirovschi.midps3.tags.models.TagModel;
 
 import java.util.List;
 import java.util.Set;

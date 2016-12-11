@@ -1,7 +1,7 @@
 package com.emirovschi.midps3.posts;
 
 import com.emirovschi.midps3.posts.models.PostModel;
-import com.emirovschi.midps3.posts.models.TagModel;
+import com.emirovschi.midps3.tags.models.TagModel;
 import com.emirovschi.midps3.users.models.UserModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

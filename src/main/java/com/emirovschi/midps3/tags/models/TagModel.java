@@ -1,4 +1,4 @@
-package com.emirovschi.midps3.posts.models;
+package com.emirovschi.midps3.tags.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

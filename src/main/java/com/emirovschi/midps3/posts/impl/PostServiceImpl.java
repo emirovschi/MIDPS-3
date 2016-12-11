@@ -5,7 +5,7 @@ import com.emirovschi.midps3.posts.PostRepository;
 import com.emirovschi.midps3.posts.PostService;
 import com.emirovschi.midps3.posts.models.CommentModel;
 import com.emirovschi.midps3.posts.models.PostModel;
-import com.emirovschi.midps3.posts.models.TagModel;
+import com.emirovschi.midps3.tags.models.TagModel;
 import com.emirovschi.midps3.users.models.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

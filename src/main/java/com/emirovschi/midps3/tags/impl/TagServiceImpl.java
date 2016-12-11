@@ -1,8 +1,8 @@
-package com.emirovschi.midps3.posts.impl;
+package com.emirovschi.midps3.tags.impl;
 
-import com.emirovschi.midps3.posts.TagRepository;
-import com.emirovschi.midps3.posts.TagService;
-import com.emirovschi.midps3.posts.models.TagModel;
+import com.emirovschi.midps3.tags.TagRepository;
+import com.emirovschi.midps3.tags.TagService;
+import com.emirovschi.midps3.tags.models.TagModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
