@@ -32,7 +32,17 @@ public class PostServiceImpl implements PostService
     @Override
     public Page<PostModel> search(final String title, final Set<TagModel> tags, final Set<UserModel> users, final Pageable pageable)
     {
-        return postRepository.findByTitleLikeAndTagsInAndUserIn(title, tags, users, pageable);
+        return postRepository.search(textOrNull(title), setOrNull(tags), setOrNull(users), pageable);
+    }
+
+    private String textOrNull(final String text)
+    {
+        return text == null || text.isEmpty() ? null : text;
+    }
+
+    private <T> Set<T> setOrNull(final Set<T> set)
+    {
+        return set.isEmpty() ? null : set;
     }
 
     @Override

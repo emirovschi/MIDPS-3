@@ -11,12 +11,14 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Set;
 
+import static com.emirovschi.midps3.posts.PostConstants.SEARCH_POSTS;
 import static com.emirovschi.midps3.posts.PostConstants.VOTES_COUNT_BY_TAG;
 
 @Repository
 public interface PostRepository extends JpaRepository<PostModel, Long>
 {
-    Page<PostModel> findByTitleLikeAndTagsInAndUserIn(String title, Set<TagModel> tags, Set<UserModel> users, Pageable pageable);
+    @Query(SEARCH_POSTS)
+    Page<PostModel> search(String title, Set<TagModel> tags, Set<UserModel> users, Pageable pageable);
 
     PostModel findById(long id);
 
