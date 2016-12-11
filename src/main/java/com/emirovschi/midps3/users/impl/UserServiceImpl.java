@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService
     public UserModel getSessionUser()
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return getUserByEmail(authentication.getPrincipal().toString()).orElseThrow(UserNotFound::new);
+        return getUserByEmail(authentication.getName()).orElseThrow(UserNotFound::new);
     }
 
     @Override
