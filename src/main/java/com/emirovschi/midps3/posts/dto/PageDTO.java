@@ -7,7 +7,7 @@ public class PageDTO<T>
     private int currentPage;
     private int pageSize;
     private int totalPage;
-    private int totalItems;
+    private long totalItems;
     private List<T> items;
 
     public int getCurrentPage()
@@ -40,12 +40,12 @@ public class PageDTO<T>
         this.totalPage = totalPage;
     }
 
-    public int getTotalItems()
+    public long getTotalItems()
     {
         return totalItems;
     }
 
-    public void setTotalItems(final int totalItems)
+    public void setTotalItems(final long totalItems)
     {
         this.totalItems = totalItems;
     }
