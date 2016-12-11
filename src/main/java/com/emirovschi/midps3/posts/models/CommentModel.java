@@ -2,12 +2,12 @@ package com.emirovschi.midps3.posts.models;
 
 import com.emirovschi.midps3.users.models.UserModel;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalTime;
 
@@ -19,12 +19,12 @@ public class CommentModel
     @GeneratedValue
     private long id;
 
-    @ManyToOne
-    @JoinColumn(name="post")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "post")
     private PostModel post;
 
-    @OneToMany
-    @JoinColumn(name="user")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user")
     private UserModel user;
 
     private LocalTime time;

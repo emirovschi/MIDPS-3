@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -42,6 +43,10 @@ public class PostModel
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<CommentModel> comments;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user")
+    private UserModel user;
 
     public long getId()
     {
