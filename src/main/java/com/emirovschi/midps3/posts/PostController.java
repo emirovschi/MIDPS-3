@@ -3,6 +3,7 @@ package com.emirovschi.midps3.posts;
 import com.emirovschi.midps3.posts.exceptions.BadImageException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,5 +35,19 @@ public class PostController
         }
 
         postFacade.create(title, tags, image.getBytes());
+    }
+
+    @Secured("ROLE_USER")
+    @RequestMapping(value = "/{id}/vote/up", method = RequestMethod.POST)
+    public void voteUp(@PathVariable final long id)
+    {
+        postFacade.voteUp(id);
+    }
+
+    @Secured("ROLE_USER")
+    @RequestMapping(value = "/{id}/vote/down", method = RequestMethod.POST)
+    public void voteDown(@PathVariable final long id)
+    {
+        postFacade.voteDown(id);
     }
 }
