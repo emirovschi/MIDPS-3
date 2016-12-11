@@ -23,6 +23,7 @@ import javax.transaction.Transactional;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 public class PostFacadeImpl implements PostFacade
@@ -91,7 +92,7 @@ public class PostFacadeImpl implements PostFacade
         {
             final PostModel post = new PostModel();
             post.setTitle(title);
-            post.setTags(tagService.save(tags));
+            post.setTags(tagService.save(tags.stream().distinct().collect(Collectors.toList())));
             post.setImage(new SerialBlob(image));
             post.setUser(userService.getSessionUser());
             postService.save(post);
