@@ -26,6 +26,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static java.util.Collections.emptySet;
+import static java.util.Optional.ofNullable;
+
 @Component
 public class PostFacadeImpl implements PostFacade
 {
@@ -53,8 +56,8 @@ public class PostFacadeImpl implements PostFacade
     @Override
     public PageDTO<PostDTO> search(final String title, final Set<String> tags, final Set<String> users, final Pageable pageable)
     {
-        final Set<TagModel> tagModels = tagService.getTags(tags);
-        final Set<UserModel> userModels = userService.getUsers(users);
+        final Set<TagModel> tagModels = ofNullable(tags).map(tagService::getTags).orElse(emptySet());
+        final Set<UserModel> userModels = ofNullable(users).map(userService::getUsers).orElse(emptySet());
         return postPageConverter.convert(postService.search(title, tagModels, userModels, pageable));
     }
 
