@@ -7,7 +7,6 @@ import com.emirovschi.midps3.users.models.UserModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.sql.Blob;
 import java.util.Set;
 
 public interface PostService
@@ -20,7 +19,7 @@ public interface PostService
 
     void addComment(PostModel post, CommentModel comment);
 
-    PostModel create(String title, Blob image);
+    void save(PostModel post);
 
     void delete(PostModel post);
 }

@@ -19,7 +19,9 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import javax.sql.rowset.serial.SerialBlob;
+import javax.transaction.Transactional;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Set;
 
 @Component
@@ -72,7 +74,7 @@ public class PostFacadeImpl implements PostFacade
     private void vote(final long id, final int vote)
     {
         final PostModel post = postService.getPostById(id);
-        userService.getSessionUser().ifPresent(u -> postService.vote(post, u, vote));
+        postService.vote(post, userService.getSessionUser(), vote);
     }
 
     @Override
@@ -82,11 +84,17 @@ public class PostFacadeImpl implements PostFacade
     }
 
     @Override
-    public PostDTO create(final String title, final byte[] image) throws BadImageException
+    @Transactional
+    public PostDTO create(final String title, final List<String> tags, final byte[] image) throws BadImageException
     {
         try
         {
-            final PostModel post = postService.create(title, new SerialBlob(image));
+            final PostModel post = new PostModel();
+            post.setTitle(title);
+            post.setTags(tagService.save(tags));
+            post.setImage(new SerialBlob(image));
+            post.setUser(userService.getSessionUser());
+            postService.save(post);
             return postMinimalConverter.convert(post);
         }
         catch (SQLException e)

@@ -11,7 +11,7 @@ public interface UserService
 
     void save(UserModel user);
 
-    Optional<UserModel> getSessionUser();
+    UserModel getSessionUser();
 
     Set<UserModel> getUsers(Set<String> users);
 }

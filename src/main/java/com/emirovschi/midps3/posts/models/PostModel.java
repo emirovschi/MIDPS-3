@@ -102,4 +102,14 @@ public class PostModel
     {
         this.comments = comments;
     }
+
+    public UserModel getUser()
+    {
+        return user;
+    }
+
+    public void setUser(final UserModel user)
+    {
+        this.user = user;
+    }
 }

@@ -4,8 +4,10 @@ import com.emirovschi.midps3.posts.dto.CommentDTO;
 import com.emirovschi.midps3.posts.dto.PageDTO;
 import com.emirovschi.midps3.posts.dto.PostDTO;
 import com.emirovschi.midps3.posts.exceptions.BadImageException;
+import com.emirovschi.midps3.users.exceptions.UserNotFound;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Set;
 
 public interface PostFacade
@@ -20,7 +22,7 @@ public interface PostFacade
 
     void comment(long id, CommentDTO comment);
 
-    PostDTO create(String title, byte[] image) throws BadImageException;
+    PostDTO create(String title, List<String> tags, byte[] image) throws BadImageException, UserNotFound;
 
     void delete(long id);
 }

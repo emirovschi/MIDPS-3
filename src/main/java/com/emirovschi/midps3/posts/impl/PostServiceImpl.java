@@ -12,7 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -72,13 +71,9 @@ public class PostServiceImpl implements PostService
     }
 
     @Override
-    public PostModel create(final String title, final Blob image)
+    public void save(final PostModel post)
     {
-        final PostModel post = new PostModel();
-        post.setTitle(title);
-        post.setImage(image);
         postRepository.save(post);
-        return post;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.emirovschi.midps3.users.impl;
 
 import com.emirovschi.midps3.users.UserRepository;
 import com.emirovschi.midps3.users.UserService;
+import com.emirovschi.midps3.users.exceptions.UserNotFound;
 import com.emirovschi.midps3.users.models.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -34,10 +35,10 @@ public class UserServiceImpl implements UserService
     }
 
     @Override
-    public Optional<UserModel> getSessionUser()
+    public UserModel getSessionUser()
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return getUserByEmail(authentication.getPrincipal().toString());
+        return getUserByEmail(authentication.getPrincipal().toString()).orElseThrow(UserNotFound::new);
     }
 
     @Override
