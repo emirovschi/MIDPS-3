@@ -1,8 +1,150 @@
-<html>
-    <head>
-        <title>Hello world</title>
-    </head>
-    <body>
-        <p>Hello World!</p>
-    </body>
+<html lang="en" >
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <base href="/">
+</head>
+<body ng-app="App" layout="column">
+
+    <div ng-controller="index" layout="column" flex>
+
+        <md-toolbar class="md-hue-2" md-theme="login">
+            <div class="md-toolbar-tools">
+                <h2>
+                    <span>Site</span>
+                </h2>
+                <span flex=""></span>
+                <md-button class="md-raised" id="login" ng-click="openLogIn()">Log In</md-button>
+                <md-button class="md-primary" id="signup" ng-click="openSignUp()">Sign Up</md-button>
+            </div>
+        </md-toolbar>
+
+        <div layout="row" flex>
+            <md-sidenav md-is-open="true" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" class="md-primary" layout="column" layout-align="top stretch" flex-xs="100" flex-sm="noshrink" flex-gt-sm="20">
+                <md-subheader ng-if="tags.length != 0" class="md-primary">Selected tags</md-subheader>
+                <md-chips ng-if="tags.length != 0" ng-model="tags" readonly="true" md-removable="true">
+                    <md-chip-template color-chip chip-add="$chip.add">
+                        {{$chip.name}}
+                    </md-chip-template>
+                </md-chips>
+                <div layout="row" layout-align="center start">
+                    <md-input-container class="hide-error-message" flex="90">
+                        <label>Search tags</label>
+                        <input type="text">
+                    </md-input-container>
+                </div>
+                <md-content flex>
+                    <md-list ng-cloak>
+                        <md-list-item>
+                            <p>GIF <small>(150)</small></p>
+                            <md-button class="md-icon-button md-secondary" md-theme="success" aria-label="Comment">
+                                <md-icon><i class="material-icons">add_circle</i></md-icon>
+                            </md-button>
+                            <md-button class="md-icon-button md-secondary" md-theme="success" aria-label="Comment">
+                                <md-icon><i class="material-icons">remove_circle</i></md-icon>
+                            </md-button>
+                        </md-list-item>
+                        <md-list-item>
+                            <p>Funny <small>(124)</small></p>
+                            <md-button class="md-icon-button md-secondary" md-theme="success" aria-label="Comment">
+                                <md-icon><i class="material-icons">add_circle</i></md-icon>
+                            </md-button>
+                            <md-button class="md-icon-button md-secondary" md-theme="success" aria-label="Comment">
+                                <md-icon><i class="material-icons">remove_circle</i></md-icon>
+                            </md-button>
+                        </md-list-item>
+                        <md-list-item>
+                            <p>School <small>(97)</small></p>
+                            <md-button class="md-icon-button md-secondary" md-theme="success" aria-label="Comment">
+                                <md-icon><i class="material-icons">add_circle</i></md-icon>
+                            </md-button>
+                            <md-button class="md-icon-button md-secondary" md-theme="success" aria-label="Comment">
+                                <md-icon><i class="material-icons">remove_circle</i></md-icon>
+                            </md-button>
+                        </md-list-item>
+                        <md-list-item>
+                            <p>Games <small>(35)</small></p>
+                            <md-button class="md-icon-button md-secondary" md-theme="success" aria-label="Comment">
+                                <md-icon><i class="material-icons">add_circle</i></md-icon>
+                            </md-button>
+                            <md-button class="md-icon-button md-secondary" md-theme="success" aria-label="Comment">
+                                <md-icon><i class="material-icons">remove_circle</i></md-icon>
+                            </md-button>
+                        </md-list-item>
+                    </md-list>
+                </md-content>
+            </md-sidenav>
+            <md-content flex layout="row" layout-align="center start">
+                <div flex="60">
+                    <md-card>
+                        <md-card-header>
+                            <md-card-header-text>
+                                <span class="md-title">Post title</span>
+                                <span class="md-subhead">user</span>
+                            </md-card-header-text>
+                            <span flex></span>
+                            <div>
+                                <md-button class="md-icon-button md-primary" md-theme="success" aria-label="Comment">
+                                    <md-icon><i class="material-icons">thumb_up</i></md-icon>
+                                </md-button>
+                                <md-button class="md-icon-button md-primary" md-theme="error" aria-label="Comment">
+                                    <md-icon><i class="material-icons">thumb_down</i></md-icon>
+                                </md-button>
+                            </div>
+                        </md-card-header>
+                        <img ng-src="http://localhost:8080/posts/66/image" class="md-card-image" alt="Washed Out">
+                    </md-card>
+                    <md-card>
+                        <md-card-header>
+                            <md-card-header-text>
+                                <span class="md-title">Post title</span>
+                                <span class="md-subhead">user</span>
+                            </md-card-header-text>
+                            <span flex></span>
+                            <div>
+                                <md-button class="md-icon-button md-primary" md-theme="success" aria-label="Comment">
+                                    <md-icon><i class="material-icons">thumb_up</i></md-icon>
+                                </md-button>
+                                <md-button class="md-icon-button md-primary" md-theme="error" aria-label="Comment">
+                                    <md-icon><i class="material-icons">thumb_down</i></md-icon>
+                                </md-button>
+                            </div>
+                        </md-card-header>
+                        <img ng-src="http://localhost:8080/posts/66/image" class="md-card-image" alt="Washed Out">
+                    </md-card>
+                    <md-card>
+                        <md-card-header>
+                            <md-card-header-text>
+                                <span class="md-title">Post title</span>
+                                <span class="md-subhead">user</span>
+                            </md-card-header-text>
+                            <span flex></span>
+                            <div>
+                                <md-button class="md-icon-button md-primary" md-theme="success" aria-label="Comment">
+                                    <md-icon><i class="material-icons">thumb_up</i></md-icon>
+                                </md-button>
+                                <md-button class="md-icon-button md-primary" md-theme="error" aria-label="Comment">
+                                    <md-icon><i class="material-icons">thumb_down</i></md-icon>
+                                </md-button>
+                            </div>
+                        </md-card-header>
+                        <img ng-src="http://localhost:8080/posts/66/image" class="md-card-image" alt="Washed Out">
+                    </md-card>
+                </div>
+            </md-content>
+        </div>
+    </div>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.js"></script>
+    <script src="/js/module.js"></script>
+    <script src="/js/directives/colorChip.js"></script>
+    <script src="/js/controllers/index.js"></script>
+</body>
 </html>

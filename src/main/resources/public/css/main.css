@@ -1,0 +1,17 @@
+.red-chip
+{
+    background-color: rgb(255,87,34);
+}
+
+.green-chip
+{
+    background-color: rgb(76,175,80);
+}
+
+md-input-container.hide-error-message {
+    margin-bottom:0;
+}
+
+md-input-container.hide-error-message .md-errors-spacer {
+    min-height: 0;
+}
