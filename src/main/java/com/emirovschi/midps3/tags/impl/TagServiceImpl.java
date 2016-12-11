@@ -4,6 +4,7 @@ import com.emirovschi.midps3.tags.TagRepository;
 import com.emirovschi.midps3.tags.TagService;
 import com.emirovschi.midps3.tags.models.TagModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,5 +43,17 @@ public class TagServiceImpl implements TagService
     public Set<TagModel> getTags(final Set<String> tags)
     {
         return tags.stream().map(tagRepository::findByName).filter(Objects::nonNull).collect(Collectors.toSet());
+    }
+
+    @Override
+    public List<TagModel> getTagsSortedByPostsCount(final Pageable pageable)
+    {
+        return tagRepository.findTagsSortedByPostCount(pageable);
+    }
+
+    @Override
+    public List<TagModel> getTagsSortedByVotesSum(final Pageable pageable)
+    {
+        return tagRepository.findTagsSortedByVotesSum(pageable);
     }
 }
