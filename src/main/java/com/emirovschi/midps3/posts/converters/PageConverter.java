@@ -12,6 +12,7 @@ public abstract class PageConverter<T, TDTO> implements Converter<Page<T>, PageD
     public PageDTO<TDTO> convert(final Page<T> page)
     {
         final PageDTO<TDTO> pageDTO = new PageDTO<>();
+        pageDTO.setCurrentPage(page.getNumber());
         pageDTO.setPageSize(page.getSize());
         pageDTO.setTotalPage(page.getTotalPages());
         pageDTO.setTotalItems(page.getTotalElements());
