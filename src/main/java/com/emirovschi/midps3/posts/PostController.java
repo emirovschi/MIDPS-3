@@ -1,5 +1,6 @@
 package com.emirovschi.midps3.posts;
 
+import com.emirovschi.midps3.posts.dto.PostDTO;
 import com.emirovschi.midps3.posts.exceptions.BadImageException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -35,6 +36,12 @@ public class PostController
         }
 
         postFacade.create(title, tags, image.getBytes());
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public PostDTO getPost(@PathVariable final long id)
+    {
+        return postFacade.getPost(id);
     }
 
     @Secured("ROLE_USER")
