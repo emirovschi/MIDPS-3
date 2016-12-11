@@ -24,4 +24,6 @@ public interface PostService
     void delete(PostModel post);
 
     long getPostCount(TagModel tag);
+
+    long getVotesCount(TagModel tag);
 }

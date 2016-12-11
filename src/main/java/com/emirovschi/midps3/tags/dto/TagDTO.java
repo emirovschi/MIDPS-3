@@ -4,6 +4,7 @@ public class TagDTO
 {
     private String name;
     private long count;
+    private long vote;
 
     public String getName()
     {
@@ -23,5 +24,15 @@ public class TagDTO
     public void setCount(final long count)
     {
         this.count = count;
+    }
+
+    public long getVote()
+    {
+        return vote;
+    }
+
+    public void setVote(final long vote)
+    {
+        this.vote = vote;
     }
 }

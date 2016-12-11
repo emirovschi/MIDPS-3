@@ -87,4 +87,10 @@ public class PostServiceImpl implements PostService
     {
         return postRepository.countByTags(tag);
     }
+
+    @Override
+    public long getVotesCount(final TagModel tag)
+    {
+        return postRepository.sumVotesByTag(tag);
+    }
 }

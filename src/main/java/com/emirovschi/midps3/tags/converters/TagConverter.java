@@ -19,6 +19,7 @@ public class TagConverter implements Converter<TagModel, TagDTO>
         final TagDTO tagDTO = new TagDTO();
         tagDTO.setName(tag.getName());
         tagDTO.setCount(postService.getPostCount(tag));
+        tagDTO.setVote(postService.getVotesCount(tag));
         return tagDTO;
     }
 }
