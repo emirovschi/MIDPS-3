@@ -8,7 +8,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static java.util.Optional.ofNullable;
 
@@ -35,5 +38,11 @@ public class UserServiceImpl implements UserService
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return getUserByEmail(authentication.getPrincipal().toString());
+    }
+
+    @Override
+    public Set<UserModel> getUsers(final Set<String> users)
+    {
+        return users.stream().map(userRepository::findByEmail).filter(Objects::nonNull).collect(Collectors.toSet());
     }
 }

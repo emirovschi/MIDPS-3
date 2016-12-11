@@ -3,6 +3,7 @@ package com.emirovschi.midps3.users;
 import com.emirovschi.midps3.users.models.UserModel;
 
 import java.util.Optional;
+import java.util.Set;
 
 public interface UserService
 {
@@ -11,4 +12,6 @@ public interface UserService
     void save(UserModel user);
 
     Optional<UserModel> getSessionUser();
+
+    Set<UserModel> getUsers(Set<String> users);
 }
