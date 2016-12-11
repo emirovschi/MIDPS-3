@@ -16,4 +16,6 @@ public interface PostRepository extends JpaRepository<PostModel, Long>
     Page<PostModel> findByTitleLikeAndTagsInAndUserIn(String title, Set<TagModel> tags, Set<UserModel> users, Pageable pageable);
 
     PostModel findById(long id);
+
+    Long countByTags(TagModel tag);
 }

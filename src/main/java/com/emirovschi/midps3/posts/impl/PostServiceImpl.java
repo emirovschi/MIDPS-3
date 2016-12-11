@@ -81,4 +81,10 @@ public class PostServiceImpl implements PostService
     {
         postRepository.delete(post);
     }
+
+    @Override
+    public long getPostCount(final TagModel tag)
+    {
+        return postRepository.countByTags(tag);
+    }
 }

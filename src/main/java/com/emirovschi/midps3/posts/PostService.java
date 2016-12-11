@@ -22,4 +22,6 @@ public interface PostService
     void save(PostModel post);
 
     void delete(PostModel post);
+
+    long getPostCount(TagModel tag);
 }
