@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import static java.util.Collections.emptyMap;
 import static java.util.Optional.ofNullable;
 
-@Component("postMinimalReverseConverter")
+@Component("postMinimalConverter")
 public class PostMinimalConverter implements Converter<PostModel, PostDTO>
 {
     @Override
