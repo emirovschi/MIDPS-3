@@ -3,6 +3,7 @@ package com.emirovschi.midps3.posts.impl;
 import com.emirovschi.midps3.posts.CommentRepository;
 import com.emirovschi.midps3.posts.PostRepository;
 import com.emirovschi.midps3.posts.PostService;
+import com.emirovschi.midps3.posts.exceptions.NotFoundException;
 import com.emirovschi.midps3.posts.models.CommentModel;
 import com.emirovschi.midps3.posts.models.PostModel;
 import com.emirovschi.midps3.tags.models.TagModel;
@@ -48,7 +49,7 @@ public class PostServiceImpl implements PostService
     @Override
     public PostModel getPostById(final long id)
     {
-        return postRepository.findById(id);
+        return ofNullable(postRepository.findById(id)).orElseThrow(NotFoundException::new);
     }
 
     @Override
