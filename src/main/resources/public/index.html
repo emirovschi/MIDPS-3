@@ -23,58 +23,7 @@
 
         <div layout="row" flex>
             <md-sidenav md-is-open="true" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" class="md-primary" layout="column" layout-align="top stretch" flex-xs="100" flex-sm="noshrink" flex-gt-sm="20">
-                <md-subheader ng-if="tags.length != 0" class="md-primary">Selected tags</md-subheader>
-                <md-chips ng-if="tags.length != 0" ng-model="tags" readonly="true" md-removable="true">
-                    <md-chip-template color-chip chip-add="$chip.add">
-                        {{$chip.name}}
-                    </md-chip-template>
-                </md-chips>
-                <div layout="row" layout-align="center start">
-                    <md-input-container class="hide-error-message" flex="90">
-                        <label>Search tags</label>
-                        <input type="text" autocomplete="off" />
-                    </md-input-container>
-                </div>
-                <md-content flex>
-                    <md-list ng-cloak>
-                        <md-list-item>
-                            <p>GIF</p>
-                            <md-button class="md-icon-button md-primary" md-theme="success" aria-label="Comment">
-                                <md-icon><i class="material-icons">add_circle</i></md-icon>
-                            </md-button>
-                            <md-button class="md-icon-button md-primary" md-theme="error" aria-label="Comment">
-                                <md-icon><i class="material-icons">remove_circle</i></md-icon>
-                            </md-button>
-                        </md-list-item>
-                        <md-list-item>
-                            <p>Funny</p>
-                            <md-button class="md-icon-button md-primary" md-theme="success" aria-label="Comment">
-                                <md-icon><i class="material-icons">add_circle</i></md-icon>
-                            </md-button>
-                            <md-button class="md-icon-button md-primary" md-theme="error" aria-label="Comment">
-                                <md-icon><i class="material-icons">remove_circle</i></md-icon>
-                            </md-button>
-                        </md-list-item>
-                        <md-list-item>
-                            <p>School</p>
-                            <md-button class="md-icon-button md-primary" md-theme="success" aria-label="Comment">
-                                <md-icon><i class="material-icons">add_circle</i></md-icon>
-                            </md-button>
-                            <md-button class="md-icon-button md-primary" md-theme="error" aria-label="Comment">
-                                <md-icon><i class="material-icons">remove_circle</i></md-icon>
-                            </md-button>
-                        </md-list-item>
-                        <md-list-item>
-                            <p>Games</p>
-                            <md-button class="md-icon-button md-primary" md-theme="success" aria-label="Comment">
-                                <md-icon><i class="material-icons">add_circle</i></md-icon>
-                            </md-button>
-                            <md-button class="md-icon-button md-primary" md-theme="error" aria-label="Comment">
-                                <md-icon><i class="material-icons">remove_circle</i></md-icon>
-                            </md-button>
-                        </md-list-item>
-                    </md-list>
-                </md-content>
+                <search tags="tags"></search>
             </md-sidenav>
             <md-content flex layout="row" layout-align="center start">
                 <div flex="50">
@@ -150,7 +99,9 @@
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.js"></script>
     <script src="/js/module.js"></script>
+    <script src="/js/services/tags.js"></script>
     <script src="/js/directives/colorChip.js"></script>
+    <script src="/js/directives/search.js"></script>
     <script src="/js/controllers/index.js"></script>
 </body>
 </html>
