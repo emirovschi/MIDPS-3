@@ -2,11 +2,6 @@ app.controller("index",function($scope, $mdDialog)
 {
     $scope.tags = [];
 
-    for (i=0; i<10; i++)
-    {
-        $scope.tags.push({name: 'test'+i, add: i%3!=0});
-    }
-
      $scope.openLogIn = function() {
         $mdDialog.show(
           $mdDialog.alert()
