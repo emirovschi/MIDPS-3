@@ -1,23 +1,23 @@
 package com.emirovschi.midps3.tags;
 
 import com.emirovschi.midps3.tags.models.TagModel;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.emirovschi.midps3.users.models.UserModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import static com.emirovschi.midps3.tags.TagConstants.TAGS_BY_POST_COUNT;
-import static com.emirovschi.midps3.tags.TagConstants.TAGS_BY_VOTES_SUM;
+import java.util.List;
+import java.util.Set;
+
+import static com.emirovschi.midps3.tags.TagConstants.SEARCH_TAGS;
 
 @Repository
 public interface TagRepository extends JpaRepository<TagModel, Long>
 {
     TagModel findByName(String name);
 
-    @Query(TAGS_BY_POST_COUNT)
-    Page<TagModel> findTagsSortedByPostCount(Pageable pageable);
-
-    @Query(TAGS_BY_VOTES_SUM)
-    Page<TagModel> findTagsSortedByVotesSum(Pageable pageable);
+    @Query(SEARCH_TAGS)
+    List<TagModel> findTags(@Param("query") String query, @Param("adds") Set<TagModel> adds,
+                            @Param("excludes") Set<TagModel> excludes, @Param("users") Set<UserModel> users);
 }

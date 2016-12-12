@@ -3,8 +3,7 @@ package com.emirovschi.midps3.tags.dto;
 public class TagDTO
 {
     private String name;
-    private long count;
-    private long vote;
+    private boolean add;
 
     public String getName()
     {
@@ -16,23 +15,13 @@ public class TagDTO
         this.name = name;
     }
 
-    public long getCount()
+    public boolean isAdd()
     {
-        return count;
+        return add;
     }
 
-    public void setCount(final long count)
+    public void setAdd(final boolean add)
     {
-        this.count = count;
-    }
-
-    public long getVote()
-    {
-        return vote;
-    }
-
-    public void setVote(final long vote)
-    {
-        this.vote = vote;
+        this.add = add;
     }
 }

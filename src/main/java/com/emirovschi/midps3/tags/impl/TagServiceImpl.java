@@ -3,6 +3,7 @@ package com.emirovschi.midps3.tags.impl;
 import com.emirovschi.midps3.tags.TagRepository;
 import com.emirovschi.midps3.tags.TagService;
 import com.emirovschi.midps3.tags.models.TagModel;
+import com.emirovschi.midps3.users.models.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -47,14 +48,9 @@ public class TagServiceImpl implements TagService
     }
 
     @Override
-    public Page<TagModel> getTagsSortedByPostsCount(final Pageable pageable)
+    public List<TagModel> getTags(final String query, final Set<TagModel> adds,
+                                  final Set<TagModel> excludes, final Set<UserModel> users)
     {
-        return tagRepository.findTagsSortedByPostCount(pageable);
-    }
-
-    @Override
-    public Page<TagModel> getTagsSortedByVotesSum(final Pageable pageable)
-    {
-        return tagRepository.findTagsSortedByVotesSum(pageable);
+        return tagRepository.findTags(query, adds, excludes, users);
     }
 }
