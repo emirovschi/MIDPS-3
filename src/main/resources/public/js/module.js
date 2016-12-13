@@ -1,4 +1,4 @@
-var app = angular.module('App', ['ngMaterial', 'ngMessages', 'ngAnimate', 'ngRoute'])
+var app = angular.module('App', ['ngMaterial', 'ngMessages', 'ngAnimate', 'ngRoute', 'vs-repeat'])
 .config(function($mdThemingProvider) {
     $mdThemingProvider.theme('default')
       .primaryPalette('light-blue');

@@ -31,3 +31,8 @@ md-list-item .md-button:last-of-type
 {
     margin:0;
 }
+
+.repeater-container
+{
+    overflow:scroll;
+}
