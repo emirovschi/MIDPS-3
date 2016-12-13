@@ -19,5 +19,5 @@ public interface TagRepository extends JpaRepository<TagModel, Long>
 
     @Query(SEARCH_TAGS)
     List<TagModel> findTags(@Param("query") String query, @Param("adds") Set<TagModel> adds,
-                            @Param("excludes") Set<TagModel> excludes, @Param("users") Set<UserModel> users);
+                            @Param("excludes") Set<TagModel> excludes);
 }

@@ -14,5 +14,5 @@ public interface TagService
 
     Set<TagModel> getTags(Set<String> tags);
 
-    List<TagModel> getTags(String query, Set<TagModel> adds, Set<TagModel> excludes, Set<UserModel> users);
+    List<TagModel> getTags(String query, Set<TagModel> adds, Set<TagModel> excludes);
 }

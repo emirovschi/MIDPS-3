@@ -48,9 +48,8 @@ public class TagServiceImpl implements TagService
     }
 
     @Override
-    public List<TagModel> getTags(final String query, final Set<TagModel> adds,
-                                  final Set<TagModel> excludes, final Set<UserModel> users)
+    public List<TagModel> getTags(final String query, final Set<TagModel> adds, final Set<TagModel> excludes)
     {
-        return tagRepository.findTags(query, adds, excludes, users);
+        return tagRepository.findTags(query, adds, excludes);
     }
 }
