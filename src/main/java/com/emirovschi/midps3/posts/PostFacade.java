@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface PostFacade
 {
-    PageDTO<PostDTO> search(SearchDTO search, Long firstId, Pageable pageable);
+    PageDTO<PostDTO> search(SearchDTO search, Pageable pageable);
 
     PostDTO getPost(long id);
 

@@ -50,11 +50,9 @@ public class PostController
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)
-    public PageDTO<PostDTO> searchPosts(@RequestBody final SearchDTO search,
-                                        @RequestParam(required = false) final Long firstId,
-                                        @PageableDefault final Pageable pageable)
+    public PageDTO<PostDTO> searchPosts(@RequestBody final SearchDTO search, @PageableDefault final Pageable pageable)
     {
-        return postFacade.search(search, firstId, pageable);
+        return postFacade.search(search, pageable);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

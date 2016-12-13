@@ -9,6 +9,7 @@ public class SearchDTO
     private String query;
     private Set<TagDTO> tags;
     private Set<String> users;
+    private Long firstId;
 
     public String getQuery()
     {
@@ -38,5 +39,15 @@ public class SearchDTO
     public void setUsers(final Set<String> users)
     {
         this.users = users;
+    }
+
+    public Long getFirstId()
+    {
+        return firstId;
+    }
+
+    public void setFirstId(final Long firstId)
+    {
+        this.firstId = firstId;
     }
 }

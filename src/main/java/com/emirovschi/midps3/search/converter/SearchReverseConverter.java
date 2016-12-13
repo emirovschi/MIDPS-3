@@ -33,6 +33,7 @@ public class SearchReverseConverter implements Converter<SearchDTO, Search>
         search.setAdds(getSet(searchDTO.getTags(), getTags(true)));
         search.setExcludes(getSet(searchDTO.getTags(), getTags(false)));
         search.setUsers(getSet(searchDTO.getUsers(), userService::getUsers));
+        search.setFirstId(searchDTO.getFirstId());
         return search;
     }
 

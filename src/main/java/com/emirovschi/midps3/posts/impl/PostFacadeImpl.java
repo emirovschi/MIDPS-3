@@ -53,11 +53,11 @@ public class PostFacadeImpl implements PostFacade
     private Converter<PostModel, ImageDTO> imageConverter;
 
     @Override
-    public PageDTO<PostDTO> search(final SearchDTO searchDTO, final Long firstId, final Pageable pageable)
+    public PageDTO<PostDTO> search(final SearchDTO searchDTO, final Pageable pageable)
     {
         final Search search = searchReverseConverter.convert(searchDTO);
-
-        return postPageConverter.convert(postService.search(search.getAdds(), search.getExcludes(), firstId, pageable));
+        final Page<PostModel> posts = postService.search(search.getAdds(), search.getExcludes(), search.getFirstId(), pageable);
+        return postPageConverter.convert(posts);
     }
 
     @Override

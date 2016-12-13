@@ -11,6 +11,7 @@ public class Search
     private Set<TagModel> adds;
     private Set<TagModel> excludes;
     private Set<UserModel> users;
+    private Long firstId;
 
     public String getQuery()
     {
@@ -50,5 +51,15 @@ public class Search
     public void setUsers(final Set<UserModel> users)
     {
         this.users = users;
+    }
+
+    public Long getFirstId()
+    {
+        return firstId;
+    }
+
+    public void setFirstId(final Long firstId)
+    {
+        this.firstId = firstId;
     }
 }
