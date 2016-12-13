@@ -3,43 +3,41 @@ angular.module('App').directive('search', function(tags){
         restrict: 'E',
         scope:
         {
-            tags: "=tags"
+            searchData: "=searchData"
         },
         templateUrl: '/templates/search.html',
         link: function($scope, elem)
         {
-            $scope.query = "";
             $scope.result = [];
 
-            $scope.$watch("tags", function(newVal, oldVal)
+            $scope.$watch("searchData", function(newVal, oldVal)
             {
                 $scope.search();
             }, true);
 
             $scope.search = function()
             {
-                tags.search($scope.query, $scope.tags,
-                function(response)
-                {
-                    $scope.result = response.items;
-                });
+                tags.search($scope.query, $scope.searchData)
+                    .then(function(response)
+                    {
+                        $scope.result = response.data.items;
+                    });
             };
 
             $scope.add = function(tag)
             {
-                removeExisting($scope.tags, tag);
-                $scope.tags.push({name: tag, add: true});
+                addTag(tag, true);
             };
 
             $scope.exclude = function(tag)
             {
-                removeExisting($scope.tags, tag);
-                $scope.tags.push({name: tag, add: false});
+                addTag(tag, false);
             };
 
-            var removeExisting = function(array, tag)
+            var addTag = function(tag, add)
             {
-                $scope.tags = $scope.tags.filter(function(item) { return item.name != tag});
+                $scope.searchData.tags = $scope.searchData.tags.filter(function(item) { return item.name != tag});
+                $scope.searchData.tags.push({name: tag, add: add});
             };
 
             $scope.search();

@@ -39,7 +39,7 @@ public class SearchReverseConverter implements Converter<SearchDTO, Search>
 
     private String getString(final String string)
     {
-        return ofNullable(string).filter(s -> !s.isEmpty()).orElse(null);
+        return ofNullable(string).filter(s -> !s.isEmpty()).map(s -> "%" + s + "%").orElse(null);
     }
 
     private <D, T> Set<T> getSet(final Set<D> set, Function<Set<D>, Set<T>> function)

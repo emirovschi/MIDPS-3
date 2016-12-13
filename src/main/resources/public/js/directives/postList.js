@@ -3,12 +3,12 @@ angular.module('App').directive('postList', function($timeout){
         restrict: 'E',
         scope:
         {
-            tags: "=tags"
+            searchData: "=searchData"
         },
         templateUrl: '/templates/postList.html',
         link: function($scope, elem)
         {
-            $scope.$watch("tags", function(newVal, oldVal)
+            $scope.$watch("searchData", function(newVal, oldVal)
             {
                 //reset
             }, true);

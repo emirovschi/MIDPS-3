@@ -1,6 +1,10 @@
 app.controller("index",function($scope, $mdDialog)
 {
-    $scope.tags = [];
+    $scope.searchData = {
+        query: '',
+        tags: [],
+        users: []
+    };
 
      $scope.openLogIn = function() {
         $mdDialog.show(
