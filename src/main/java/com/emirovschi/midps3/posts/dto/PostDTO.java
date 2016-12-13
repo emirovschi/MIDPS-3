@@ -6,7 +6,9 @@ public class PostDTO
 {
     private long id;
     private String title;
-    private int score;
+    private int ups;
+    private int downs;
+    private int userVote;
     private List<CommentDTO> comments;
 
     public long getId()
@@ -29,14 +31,24 @@ public class PostDTO
         this.title = title;
     }
 
-    public int getScore()
+    public int getUps()
     {
-        return score;
+        return ups;
     }
 
-    public void setScore(final int score)
+    public void setUps(final int ups)
     {
-        this.score = score;
+        this.ups = ups;
+    }
+
+    public int getDowns()
+    {
+        return downs;
+    }
+
+    public void setDowns(final int downs)
+    {
+        this.downs = downs;
     }
 
     public List<CommentDTO> getComments()
@@ -47,5 +59,15 @@ public class PostDTO
     public void setComments(final List<CommentDTO> comments)
     {
         this.comments = comments;
+    }
+
+    public int getUserVote()
+    {
+        return userVote;
+    }
+
+    public void setUserVote(final int userVote)
+    {
+        this.userVote = userVote;
     }
 }
