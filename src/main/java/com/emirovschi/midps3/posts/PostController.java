@@ -1,18 +1,18 @@
 package com.emirovschi.midps3.posts;
 
+import com.emirovschi.midps3.list.dto.ListDTO;
 import com.emirovschi.midps3.posts.dto.ImageDTO;
-import com.emirovschi.midps3.posts.dto.PageDTO;
 import com.emirovschi.midps3.posts.dto.PostDTO;
 import com.emirovschi.midps3.posts.exceptions.BadImageException;
+import com.emirovschi.midps3.search.dto.SearchDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,13 +46,10 @@ public class PostController
         return postFacade.create(title, tags, image.getContentType(), image.getBytes());
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public PageDTO<PostDTO> getPost(@RequestParam(required = false) final String title,
-                                    @RequestParam(required = false) final Set<String> tags,
-                                    @RequestParam(required = false) final Set<String> users,
-                                    @PageableDefault final Pageable pageable)
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    public ListDTO<PostDTO> searchPosts(@RequestBody final SearchDTO search, @RequestParam(required = false) final Long lastId)
     {
-        return postFacade.search(title, tags, users, pageable);
+        return postFacade.search(search, lastId);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

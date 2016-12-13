@@ -9,7 +9,7 @@ import com.emirovschi.midps3.posts.models.PostModel;
 import com.emirovschi.midps3.tags.models.TagModel;
 import com.emirovschi.midps3.users.models.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -31,19 +31,10 @@ public class PostServiceImpl implements PostService
     private CommentRepository commentRepository;
 
     @Override
-    public Page<PostModel> search(final String title, final Set<TagModel> tags, final Set<UserModel> users, final Pageable pageable)
+    public List<PostModel> search(final Set<TagModel> adds, final Set<TagModel> excludes, final Long lastId)
     {
-        return postRepository.search(textOrNull(title), setOrNull(tags), setOrNull(users), pageable);
-    }
-
-    private String textOrNull(final String text)
-    {
-        return text == null || text.isEmpty() ? null : text;
-    }
-
-    private <T> Set<T> setOrNull(final Set<T> set)
-    {
-        return set.isEmpty() ? null : set;
+        Pageable pageable = new PageRequest(0, 20);
+        return postRepository.search(adds, excludes, lastId, pageable).getContent();
     }
 
     @Override
@@ -72,7 +63,6 @@ public class PostServiceImpl implements PostService
         final List<CommentModel> comments = ofNullable(post.getComments()).orElseGet(() -> buildCommentList(post));
         comments.add(comment);
         postRepository.save(post);
-
     }
 
     private List<CommentModel> buildCommentList(final PostModel post)
@@ -91,17 +81,5 @@ public class PostServiceImpl implements PostService
     public void delete(final PostModel post)
     {
         postRepository.delete(post);
-    }
-
-    @Override
-    public long getPostCount(final TagModel tag)
-    {
-        return postRepository.countByTags(tag);
-    }
-
-    @Override
-    public long getVotesCount(final TagModel tag)
-    {
-        return postRepository.sumVotesByTag(tag);
     }
 }

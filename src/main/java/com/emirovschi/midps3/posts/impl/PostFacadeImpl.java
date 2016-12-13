@@ -1,21 +1,19 @@
 package com.emirovschi.midps3.posts.impl;
 
 import com.emirovschi.midps3.converters.Converter;
+import com.emirovschi.midps3.list.dto.ListDTO;
 import com.emirovschi.midps3.posts.PostFacade;
 import com.emirovschi.midps3.posts.PostService;
-import com.emirovschi.midps3.posts.dto.ImageDTO;
-import com.emirovschi.midps3.tags.TagService;
 import com.emirovschi.midps3.posts.dto.CommentDTO;
-import com.emirovschi.midps3.posts.dto.PageDTO;
+import com.emirovschi.midps3.posts.dto.ImageDTO;
 import com.emirovschi.midps3.posts.dto.PostDTO;
 import com.emirovschi.midps3.posts.exceptions.BadImageException;
 import com.emirovschi.midps3.posts.models.PostModel;
-import com.emirovschi.midps3.tags.models.TagModel;
+import com.emirovschi.midps3.search.Search;
+import com.emirovschi.midps3.search.dto.SearchDTO;
+import com.emirovschi.midps3.tags.TagService;
 import com.emirovschi.midps3.users.UserService;
-import com.emirovschi.midps3.users.models.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -23,11 +21,7 @@ import javax.sql.rowset.serial.SerialBlob;
 import javax.transaction.Transactional;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
-
-import static java.util.Collections.emptySet;
-import static java.util.Optional.ofNullable;
 
 @Component
 public class PostFacadeImpl implements PostFacade
@@ -48,17 +42,20 @@ public class PostFacadeImpl implements PostFacade
     private Converter<PostModel, PostDTO> postFullConverter;
 
     @Autowired
-    private Converter<Page<PostModel>, PageDTO<PostDTO>> postPageConverter;
+    private Converter<SearchDTO, Search> searchReverseConverter;
+
+    @Autowired
+    private Converter<List<PostModel>, ListDTO<PostDTO>> postListConverter;
 
     @Autowired
     private Converter<PostModel, ImageDTO> imageConverter;
 
     @Override
-    public PageDTO<PostDTO> search(final String title, final Set<String> tags, final Set<String> users, final Pageable pageable)
+    public ListDTO<PostDTO> search(final SearchDTO searchDTO, final Long lastId)
     {
-        final Set<TagModel> tagModels = ofNullable(tags).map(tagService::getTags).orElse(emptySet());
-        final Set<UserModel> userModels = ofNullable(users).map(userService::getUsers).orElse(emptySet());
-        return postPageConverter.convert(postService.search(title, tagModels, userModels, pageable));
+        final Search search = searchReverseConverter.convert(searchDTO);
+
+        return postListConverter.convert(postService.search(search.getAdds(), search.getExcludes(), lastId));
     }
 
     @Override
