@@ -1,4 +1,4 @@
-package com.emirovschi.midps3.tags.dto;
+package com.emirovschi.midps3.list.dto;
 
 import java.util.List;
 

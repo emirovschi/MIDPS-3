@@ -1,6 +1,7 @@
 package com.emirovschi.midps3.tags.converters;
 
 import com.emirovschi.midps3.converters.Converter;
+import com.emirovschi.midps3.list.converter.ListConverter;
 import com.emirovschi.midps3.tags.dto.TagDTO;
 import com.emirovschi.midps3.tags.models.TagModel;
 import org.springframework.beans.factory.annotation.Autowired;

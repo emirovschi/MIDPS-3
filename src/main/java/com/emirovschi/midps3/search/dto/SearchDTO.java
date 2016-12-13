@@ -1,4 +1,6 @@
-package com.emirovschi.midps3.tags.dto;
+package com.emirovschi.midps3.search.dto;
+
+import com.emirovschi.midps3.tags.dto.TagDTO;
 
 import java.util.Set;
 

@@ -1,7 +1,7 @@
-package com.emirovschi.midps3.tags.converters;
+package com.emirovschi.midps3.list.converter;
 
 import com.emirovschi.midps3.converters.Converter;
-import com.emirovschi.midps3.tags.dto.ListDTO;
+import com.emirovschi.midps3.list.dto.ListDTO;
 
 import java.util.List;
 import java.util.stream.Collectors;
