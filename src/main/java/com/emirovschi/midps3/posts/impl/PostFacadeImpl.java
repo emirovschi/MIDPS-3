@@ -1,7 +1,7 @@
 package com.emirovschi.midps3.posts.impl;
 
 import com.emirovschi.midps3.converters.Converter;
-import com.emirovschi.midps3.list.dto.ListDTO;
+import com.emirovschi.midps3.list.dto.PageDTO;
 import com.emirovschi.midps3.posts.PostFacade;
 import com.emirovschi.midps3.posts.PostService;
 import com.emirovschi.midps3.posts.dto.CommentDTO;
@@ -14,6 +14,8 @@ import com.emirovschi.midps3.search.dto.SearchDTO;
 import com.emirovschi.midps3.tags.TagService;
 import com.emirovschi.midps3.users.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -45,17 +47,17 @@ public class PostFacadeImpl implements PostFacade
     private Converter<SearchDTO, Search> searchReverseConverter;
 
     @Autowired
-    private Converter<List<PostModel>, ListDTO<PostDTO>> postListConverter;
+    private Converter<Page<PostModel>, PageDTO<PostDTO>> postPageConverter;
 
     @Autowired
     private Converter<PostModel, ImageDTO> imageConverter;
 
     @Override
-    public ListDTO<PostDTO> search(final SearchDTO searchDTO, final Long lastId)
+    public PageDTO<PostDTO> search(final SearchDTO searchDTO, final Long firstId, final Pageable pageable)
     {
         final Search search = searchReverseConverter.convert(searchDTO);
 
-        return postListConverter.convert(postService.search(search.getAdds(), search.getExcludes(), lastId));
+        return postPageConverter.convert(postService.search(search.getAdds(), search.getExcludes(), firstId, pageable));
     }
 
     @Override

@@ -4,13 +4,15 @@ import com.emirovschi.midps3.posts.models.CommentModel;
 import com.emirovschi.midps3.posts.models.PostModel;
 import com.emirovschi.midps3.tags.models.TagModel;
 import com.emirovschi.midps3.users.models.UserModel;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Set;
 
 public interface PostService
 {
-    List<PostModel> search(Set<TagModel> adds, Set<TagModel> excludes, Long lastId);
+    Page<PostModel> search(Set<TagModel> adds, Set<TagModel> excludes, Long firstId, Pageable pageable);
 
     PostModel getPostById(long id);
 

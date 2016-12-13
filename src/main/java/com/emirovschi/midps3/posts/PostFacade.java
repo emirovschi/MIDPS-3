@@ -1,16 +1,17 @@
 package com.emirovschi.midps3.posts;
 
-import com.emirovschi.midps3.list.dto.ListDTO;
+import com.emirovschi.midps3.list.dto.PageDTO;
 import com.emirovschi.midps3.posts.dto.CommentDTO;
 import com.emirovschi.midps3.posts.dto.ImageDTO;
 import com.emirovschi.midps3.posts.dto.PostDTO;
 import com.emirovschi.midps3.search.dto.SearchDTO;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface PostFacade
 {
-    ListDTO<PostDTO> search(SearchDTO search, Long lastId);
+    PageDTO<PostDTO> search(SearchDTO search, Long firstId, Pageable pageable);
 
     PostDTO getPost(long id);
 

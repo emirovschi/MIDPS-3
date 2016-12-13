@@ -1,4 +1,4 @@
-package com.emirovschi.midps3.list.converter;
+package com.emirovschi.midps3.list.converters;
 
 import com.emirovschi.midps3.converters.Converter;
 import com.emirovschi.midps3.list.dto.ListDTO;

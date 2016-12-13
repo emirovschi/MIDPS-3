@@ -9,6 +9,7 @@ import com.emirovschi.midps3.posts.models.PostModel;
 import com.emirovschi.midps3.tags.models.TagModel;
 import com.emirovschi.midps3.users.models.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -31,10 +32,9 @@ public class PostServiceImpl implements PostService
     private CommentRepository commentRepository;
 
     @Override
-    public List<PostModel> search(final Set<TagModel> adds, final Set<TagModel> excludes, final Long lastId)
+    public Page<PostModel> search(final Set<TagModel> adds, final Set<TagModel> excludes, final Long firstId, final Pageable pageable)
     {
-        Pageable pageable = new PageRequest(0, 20);
-        return postRepository.search(adds, excludes, lastId, pageable).getContent();
+        return postRepository.search(adds, excludes, firstId, pageable);
     }
 
     @Override

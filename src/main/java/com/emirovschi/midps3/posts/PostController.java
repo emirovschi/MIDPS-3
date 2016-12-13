@@ -1,11 +1,13 @@
 package com.emirovschi.midps3.posts;
 
-import com.emirovschi.midps3.list.dto.ListDTO;
+import com.emirovschi.midps3.list.dto.PageDTO;
 import com.emirovschi.midps3.posts.dto.ImageDTO;
 import com.emirovschi.midps3.posts.dto.PostDTO;
 import com.emirovschi.midps3.posts.exceptions.BadImageException;
 import com.emirovschi.midps3.search.dto.SearchDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -36,7 +38,8 @@ public class PostController
 
     @Secured("ROLE_USER")
     @RequestMapping(method = RequestMethod.POST)
-    public PostDTO create(@RequestParam final String title, @RequestParam final List<String> tags, @RequestParam final MultipartFile image) throws IOException, BadImageException
+    public PostDTO create(@RequestParam final String title, @RequestParam final List<String> tags,
+                          @RequestParam final MultipartFile image) throws IOException, BadImageException
     {
         if (!allowedContentTypes.contains(image.getContentType()))
         {
@@ -47,9 +50,11 @@ public class PostController
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)
-    public ListDTO<PostDTO> searchPosts(@RequestBody final SearchDTO search, @RequestParam(required = false) final Long lastId)
+    public PageDTO<PostDTO> searchPosts(@RequestBody final SearchDTO search,
+                                        @RequestParam(required = false) final Long firstId,
+                                        @PageableDefault final Pageable pageable)
     {
-        return postFacade.search(search, lastId);
+        return postFacade.search(search, firstId, pageable);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

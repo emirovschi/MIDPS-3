@@ -18,7 +18,7 @@ public interface PostRepository extends JpaRepository<PostModel, Long>
 {
     @Query(SEARCH_POSTS)
     Page<PostModel> search(@Param("adds") Set<TagModel> adds, @Param("excludes") Set<TagModel> excludes,
-                           @Param("lastId") final Long lastId, Pageable pageable);
+                           @Param("firstId") final Long firstId, Pageable pageable);
 
     PostModel findById(long id);
 }
