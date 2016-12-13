@@ -1,4 +1,4 @@
-angular.module('App').directive('postList', function($timeout){
+angular.module('App').directive('postList', function($timeout, posts){
     return {
         restrict: 'E',
         scope:
@@ -17,7 +17,6 @@ angular.module('App').directive('postList', function($timeout){
 
             var isLoading = false;
             var pageSize = 20;
-            var total = 52;
 
             $scope.fetch = function()
             {
@@ -38,6 +37,11 @@ angular.module('App').directive('postList', function($timeout){
                     }));
                 }
             }
+
+            posts.getPosts(0, 2, $scope.searchData).then(function(data)
+            {
+                console.log(data);
+            });
 
             $scope.fetch();
         }
