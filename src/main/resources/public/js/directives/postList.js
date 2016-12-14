@@ -17,33 +17,35 @@ angular.module('App').directive('postList', function($timeout, posts){
 
             var isLoading = false;
             var pageSize = 2;
+            var totalPages = -1;
             var page = 0;
 
             $scope.fetch = function()
             {
-                if (!isLoading)
+                console.log("fetch");
+                if (!isLoading && (totalPages < 0 || page < totalPages))
                 {
-                    isLoading = false;
+                    isLoading = true;
                     posts.getPosts(page, pageSize, $scope.searchData).then(function(response)
                     {
                         response.data.items.forEach(function(e)
                         {
-                            var img = new Image();
-                            img.onload = function()
-                            {
-                                e.width = this.width;
-                                e.height = this.height;
-                            }
-                            img.src = '/posts/' + e.id + '/image';
+                            e.size = e.height*768/e.width + 81;
+                            $scope.posts.push(e);
                         });
 
-                        $scope.posts = $scope.posts.concat(response.data.items);
                         if ($scope.searchData.firstId == null && response.data.items.length > 0)
                         {
                             $scope.searchData.firstId = response.data.items[0].id;
                         }
 
+                        if (totalPages < 0)
+                        {
+                            totalPages = response.data.totalPage;
+                        }
+
                         page++;
+                        isLoading = false;
                     });
                 }
             }

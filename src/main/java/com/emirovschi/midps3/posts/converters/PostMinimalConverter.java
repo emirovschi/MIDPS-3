@@ -2,13 +2,20 @@ package com.emirovschi.midps3.posts.converters;
 
 import com.emirovschi.midps3.converters.Converter;
 import com.emirovschi.midps3.posts.dto.PostDTO;
+import com.emirovschi.midps3.posts.exceptions.BadImageException;
 import com.emirovschi.midps3.posts.models.PostModel;
 import com.emirovschi.midps3.users.UserService;
+import com.emirovschi.midps3.users.dto.UserDTO;
 import com.emirovschi.midps3.users.exceptions.UserNotFound;
 import com.emirovschi.midps3.users.models.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.imageio.ImageIO;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Map;
 import java.util.stream.IntStream;
 
@@ -21,6 +28,9 @@ public class PostMinimalConverter implements Converter<PostModel, PostDTO>
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private Converter<UserModel, UserDTO> userConverter;
+
     @Override
     public PostDTO convert(final PostModel post)
     {
@@ -30,6 +40,19 @@ public class PostMinimalConverter implements Converter<PostModel, PostDTO>
         postDTO.setUps(getUps(post));
         postDTO.setDowns(getDowns(post));
         postDTO.setUserVote(getUserVote(post));
+        postDTO.setUser(userConverter.convert(post.getUser()));
+
+        try
+        {
+            final BufferedImage image = ImageIO.read(post.getImage().getBinaryStream());
+            postDTO.setWidth(image.getWidth());
+            postDTO.setHeight(image.getHeight());
+        }
+        catch (IOException | SQLException e)
+        {
+            throw new BadImageException();
+        }
+
         return postDTO;
     }
 

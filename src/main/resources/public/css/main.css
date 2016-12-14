@@ -36,3 +36,8 @@ md-list-item .md-button:last-of-type
 {
     overflow:scroll;
 }
+
+.layout-row > md-card.unlimited-height
+{
+    max-height:none;
+}

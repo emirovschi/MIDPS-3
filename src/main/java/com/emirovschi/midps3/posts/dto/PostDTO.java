@@ -1,5 +1,7 @@
 package com.emirovschi.midps3.posts.dto;
 
+import com.emirovschi.midps3.users.dto.UserDTO;
+
 import java.util.List;
 
 public class PostDTO
@@ -10,6 +12,9 @@ public class PostDTO
     private int downs;
     private int userVote;
     private List<CommentDTO> comments;
+    private UserDTO user;
+    private int width;
+    private int height;
 
     public long getId()
     {
@@ -69,5 +74,35 @@ public class PostDTO
     public void setUserVote(final int userVote)
     {
         this.userVote = userVote;
+    }
+
+    public UserDTO getUser()
+    {
+        return user;
+    }
+
+    public void setUser(final UserDTO user)
+    {
+        this.user = user;
+    }
+
+    public int getWidth()
+    {
+        return width;
+    }
+
+    public void setWidth(final int width)
+    {
+        this.width = width;
+    }
+
+    public int getHeight()
+    {
+        return height;
+    }
+
+    public void setHeight(final int height)
+    {
+        this.height = height;
     }
 }
