@@ -1,7 +1,7 @@
 package com.emirovschi.midps3.posts;
 
 import com.emirovschi.midps3.list.dto.PageDTO;
-import com.emirovschi.midps3.posts.dto.ImageDTO;
+import com.emirovschi.midps3.images.dto.ImageDTO;
 import com.emirovschi.midps3.posts.dto.PostDTO;
 import com.emirovschi.midps3.posts.exceptions.BadImageException;
 import com.emirovschi.midps3.search.dto.SearchDTO;
@@ -61,10 +61,21 @@ public class PostController
         return postFacade.getPost(id);
     }
 
-    @RequestMapping(value = "/{id}/image", method = RequestMethod.GET, produces = {MediaType.IMAGE_GIF_VALUE, MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
+    @RequestMapping(value = "/{id}/image", method = RequestMethod.GET, produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
     public ResponseEntity<byte[]> getPostImage(@PathVariable final long id)
     {
         final ImageDTO image = postFacade.getPostImage(id);
+
+        final HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.setContentType(image.getType());
+
+        return new ResponseEntity<>(image.getImage(), responseHeaders, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{id}/preview", method = RequestMethod.GET, produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
+    public ResponseEntity<byte[]> getPostPreview(@PathVariable final long id)
+    {
+        final ImageDTO image = postFacade.getPostPreview(id);
 
         final HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.setContentType(image.getType());

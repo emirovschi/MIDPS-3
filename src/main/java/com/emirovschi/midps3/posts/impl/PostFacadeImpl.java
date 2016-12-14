@@ -6,7 +6,7 @@ import com.emirovschi.midps3.list.dto.PageDTO;
 import com.emirovschi.midps3.posts.PostFacade;
 import com.emirovschi.midps3.posts.PostService;
 import com.emirovschi.midps3.posts.dto.CommentDTO;
-import com.emirovschi.midps3.posts.dto.ImageDTO;
+import com.emirovschi.midps3.images.dto.ImageDTO;
 import com.emirovschi.midps3.posts.dto.PostDTO;
 import com.emirovschi.midps3.posts.exceptions.BadImageException;
 import com.emirovschi.midps3.posts.models.PostModel;
@@ -54,8 +54,11 @@ public class PostFacadeImpl implements PostFacade
     @Autowired
     private Converter<Page<PostModel>, PageDTO<PostDTO>> postPageConverter;
 
-    @Autowired
+    @Resource
     private Converter<PostModel, ImageDTO> imageConverter;
+
+    @Resource
+    private Converter<PostModel, ImageDTO> previewConverter;
 
     @Override
     public PageDTO<PostDTO> search(final SearchDTO searchDTO, final Pageable pageable)
@@ -75,6 +78,12 @@ public class PostFacadeImpl implements PostFacade
     public ImageDTO getPostImage(final long id)
     {
         return imageConverter.convert(postService.getPostById(id));
+    }
+
+    @Override
+    public ImageDTO getPostPreview(final long id)
+    {
+        return previewConverter.convert(postService.getPostById(id));
     }
 
     @Override
@@ -112,7 +121,7 @@ public class PostFacadeImpl implements PostFacade
             post.setTags(tagService.save(tags.stream().distinct().collect(Collectors.toList())));
             post.setImageType(imageType);
             post.setImage(new SerialBlob(image));
-            post.setImage(new SerialBlob(imageFacade.getPreview(image, imageType)));
+            post.setPreview(new SerialBlob(imageFacade.getPreview(image, imageType)));
             post.setUser(userService.getSessionUser());
             postService.save(post);
             return postMinimalConverter.convert(post);

@@ -1,4 +1,4 @@
-package com.emirovschi.midps3.posts.dto;
+package com.emirovschi.midps3.images.dto;
 
 import org.springframework.http.MediaType;
 
