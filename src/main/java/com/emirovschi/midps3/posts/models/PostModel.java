@@ -33,6 +33,9 @@ public class PostModel
     @Lob
     private Blob image;
 
+    @Lob
+    private Blob preview;
+
     private String imageType;
 
     @ManyToMany
@@ -124,5 +127,15 @@ public class PostModel
     public void setUser(final UserModel user)
     {
         this.user = user;
+    }
+
+    public Blob getPreview()
+    {
+        return preview;
+    }
+
+    public void setPreview(final Blob preview)
+    {
+        this.preview = preview;
     }
 }

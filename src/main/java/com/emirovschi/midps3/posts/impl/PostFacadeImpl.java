@@ -1,6 +1,7 @@
 package com.emirovschi.midps3.posts.impl;
 
 import com.emirovschi.midps3.converters.Converter;
+import com.emirovschi.midps3.images.ImageFacade;
 import com.emirovschi.midps3.list.dto.PageDTO;
 import com.emirovschi.midps3.posts.PostFacade;
 import com.emirovschi.midps3.posts.PostService;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import javax.sql.rowset.serial.SerialBlob;
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,6 +38,9 @@ public class PostFacadeImpl implements PostFacade
 
     @Autowired
     private TagService tagService;
+
+    @Autowired
+    private ImageFacade imageFacade;
 
     @Resource
     private Converter<PostModel, PostDTO> postMinimalConverter;
@@ -107,11 +112,12 @@ public class PostFacadeImpl implements PostFacade
             post.setTags(tagService.save(tags.stream().distinct().collect(Collectors.toList())));
             post.setImageType(imageType);
             post.setImage(new SerialBlob(image));
+            post.setImage(new SerialBlob(imageFacade.getPreview(image, imageType)));
             post.setUser(userService.getSessionUser());
             postService.save(post);
             return postMinimalConverter.convert(post);
         }
-        catch (SQLException e)
+        catch (SQLException | IOException e)
         {
             throw new BadImageException();
         }
