@@ -16,32 +16,37 @@ angular.module('App').directive('postList', function($timeout, posts){
             $scope.posts = [];
 
             var isLoading = false;
-            var pageSize = 20;
+            var pageSize = 2;
+            var page = 0;
 
             $scope.fetch = function()
             {
                 if (!isLoading)
                 {
-                    $timeout(angular.noop, 1000).then(angular.bind(this, function()
+                    isLoading = false;
+                    posts.getPosts(page, pageSize, $scope.searchData).then(function(response)
                     {
-                        var last = $scope.posts.length
-                        for(i = 0; i < pageSize; i++)
+                        response.data.items.forEach(function(e)
                         {
-                            var index = last+i;
-                            if (index < total)
+                            var img = new Image();
+                            img.onload = function()
                             {
-                                $scope.posts.push({text:"test " + index, size: 50 + (index*50) % 300});
+                                e.width = this.width;
+                                e.height = this.height;
                             }
+                            img.src = '/posts/' + e.id + '/image';
+                        });
+
+                        $scope.posts = $scope.posts.concat(response.data.items);
+                        if ($scope.searchData.firstId == null && response.data.items.length > 0)
+                        {
+                            $scope.searchData.firstId = response.data.items[0].id;
                         }
-                        isLoading = false;
-                    }));
+
+                        page++;
+                    });
                 }
             }
-
-            posts.getPosts(0, 2, $scope.searchData).then(function(data)
-            {
-                console.log(data);
-            });
 
             $scope.fetch();
         }
