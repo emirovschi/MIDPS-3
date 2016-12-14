@@ -1,4 +1,4 @@
-angular.module('App').directive('postList', function($timeout, posts){
+angular.module('App').directive('postList', function(posts){
     return {
         restrict: 'E',
         scope:
@@ -8,17 +8,22 @@ angular.module('App').directive('postList', function($timeout, posts){
         templateUrl: '/templates/postList.html',
         link: function($scope, elem)
         {
-            $scope.$watch("searchData", function(newVal, oldVal)
+            var pageSize = 20;
+            var totalPages = -1;
+            var page = 0;
+            var promise;
+
+            $scope.$watch("searchData.tags", function(newVal, oldVal)
             {
-                //reset
+                page = 0;
+                totalPages = -1;
+                promise = null;
+                $scope.searchData.firstId = null;
+                $scope.posts = [];
+                $scope.fetch();
             }, true);
 
             $scope.posts = [];
-
-            var isLoading = false;
-            var pageSize = 2;
-            var totalPages = -1;
-            var page = 0;
 
             $scope.showLoading = function()
             {
@@ -27,11 +32,17 @@ angular.module('App').directive('postList', function($timeout, posts){
 
             $scope.fetch = function()
             {
-                if (!isLoading && (totalPages < 0 || page < totalPages))
+                if (promise == null && (totalPages < 0 || page < totalPages))
                 {
-                    isLoading = true;
-                    posts.getPosts(page, pageSize, $scope.searchData).then(function(response)
+                    promise = posts.getPosts(page, pageSize, $scope.searchData);
+
+                    promise.then(function(response)
                     {
+                        if (promise == null)
+                        {
+                            return;
+                        }
+
                         response.data.items.forEach(function(e)
                         {
                             e.size = e.height * 768 / e.width + 81;
@@ -49,12 +60,10 @@ angular.module('App').directive('postList', function($timeout, posts){
                         }
 
                         page++;
-                        isLoading = false;
+                        promise = null;
                     });
                 }
             }
-
-            $scope.fetch();
         }
     }
 });
