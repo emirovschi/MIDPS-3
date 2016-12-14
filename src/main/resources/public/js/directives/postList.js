@@ -20,9 +20,13 @@ angular.module('App').directive('postList', function($timeout, posts){
             var totalPages = -1;
             var page = 0;
 
+            $scope.showLoading = function()
+            {
+                return totalPages != page;
+            };
+
             $scope.fetch = function()
             {
-                console.log("fetch");
                 if (!isLoading && (totalPages < 0 || page < totalPages))
                 {
                     isLoading = true;
@@ -30,7 +34,7 @@ angular.module('App').directive('postList', function($timeout, posts){
                     {
                         response.data.items.forEach(function(e)
                         {
-                            e.size = e.height*768/e.width + 81;
+                            e.size = e.height * 768 / e.width + 81;
                             $scope.posts.push(e);
                         });
 

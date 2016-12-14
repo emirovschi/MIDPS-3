@@ -40,4 +40,18 @@ md-list-item .md-button:last-of-type
 .layout-row > md-card.unlimited-height
 {
     max-height:none;
+    position:relative;
+}
+
+md-card md-progress-circular
+{
+    position:absolute;
+    margin-top:calc(50% - 50px);
+    left:calc(50% - 50px);
+    z-index: 1;
+}
+
+md-card img.md-card-image
+{
+    z-index: 2;
 }
