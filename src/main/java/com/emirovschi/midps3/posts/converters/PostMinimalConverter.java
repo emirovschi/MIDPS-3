@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.imageio.ImageIO;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -44,9 +43,9 @@ public class PostMinimalConverter implements Converter<PostModel, PostDTO>
 
         try
         {
-            final BufferedImage image = ImageIO.read(post.getImage().getBinaryStream());
-            postDTO.setWidth(image.getWidth());
-            postDTO.setHeight(image.getHeight());
+            final BufferedImage preview = ImageIO.read(post.getPreview().getBinaryStream());
+            postDTO.setWidth(preview.getWidth());
+            postDTO.setHeight(preview.getHeight());
         }
         catch (IOException | SQLException e)
         {
