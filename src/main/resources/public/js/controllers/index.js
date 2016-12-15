@@ -1,4 +1,4 @@
-app.controller("index",function($scope, $mdDialog, auth, tags)
+app.controller("index", function($scope, $mdDialog, auth, tags)
 {
     $scope.searchData = {
         query: '',
@@ -10,6 +10,7 @@ app.controller("index",function($scope, $mdDialog, auth, tags)
     {
         $mdDialog.show(
         {
+            controller: 'login',
             clickOutsideToClose: true,
             openFrom: '#login',
             closeTo: '#login',
@@ -28,8 +29,8 @@ app.controller("index",function($scope, $mdDialog, auth, tags)
         });
     };
 
-      $scope.login = function()
-      {
+    $scope.login = function()
+    {
         auth.login("emirovschi@gmail.com","123456", function(){ tags.search($scope.searchData); }, function(er){console.log(er);});
-      }
+    }
 });
