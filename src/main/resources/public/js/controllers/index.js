@@ -6,31 +6,27 @@ app.controller("index",function($scope, $mdDialog, auth, tags)
         users: []
     };
 
-     $scope.openLogIn = function() {
+    $scope.openLogIn = function()
+    {
         $mdDialog.show(
-          $mdDialog.alert()
-            .clickOutsideToClose(true)
-            .title('Opening from the left')
-            .textContent('Closing to the right!')
-            .ariaLabel('Left to right demo')
-            .ok('Nice!')
-            .openFrom('#login')
-            .closeTo('#login')
-        );
-      };
+        {
+            clickOutsideToClose: true,
+            openFrom: '#login',
+            closeTo: '#login',
+            templateUrl: '/templates/login.html'
+        });
+    };
 
-     $scope.openSignUp = function() {
+    $scope.openSignUp = function()
+    {
         $mdDialog.show(
-          $mdDialog.alert()
-            .clickOutsideToClose(true)
-            .title('Opening from the left')
-            .textContent('Closing to the right!')
-            .ariaLabel('Left to right demo')
-            .ok('Nice!')
-            .openFrom('#signup')
-            .closeTo('#signup')
-        );
-      };
+        {
+            clickOutsideToClose: true,
+            openFrom: '#signup',
+            closeTo: '#signup',
+            templateUrl: '/templates/signup.html'
+        });
+    };
 
       $scope.login = function()
       {

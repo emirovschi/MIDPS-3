@@ -1,0 +1,40 @@
+<md-dialog flex="30">
+    <form ng-cloak autocomplete="off">
+        <md-toolbar class="md-primary md-hue-2" md-theme="login">
+            <div class="md-toolbar-tools">
+                <h2>Sign Up</h2>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content" layout="column" layout-align="start stretch">
+                <md-input-container class="md-block">
+                    <label>Name</label>
+                    <input ng-model="user.name" type="text">
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Email</label>
+                    <input ng-model="user.email" type="text">
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Password</label>
+                    <input ng-model="user.password" type="password" autocomplete="new-password">
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Repeat password</label>
+                    <input ng-model="user.password2" type="password">
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button class="md-primary md-raised md-hue-2">
+                Sign Up
+            </md-button>
+            <md-button>
+                Log In
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
