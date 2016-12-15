@@ -17,7 +17,7 @@ angular.module('App').directive('search', function(tags){
 
             $scope.search = function()
             {
-                tags.search($scope.query, $scope.searchData)
+                tags.search($scope.searchData)
                     .then(function(response)
                     {
                         $scope.result = response.data.items;
