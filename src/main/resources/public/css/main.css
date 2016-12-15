@@ -55,3 +55,8 @@ md-card img.md-card-image
 {
     z-index: 2;
 }
+
+md-dialog md-dialog-actions .md-button.md-flex
+{
+    margin-right: 8px;
+}

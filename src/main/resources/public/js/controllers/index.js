@@ -15,7 +15,7 @@ app.controller("index", function($scope, $mdDialog, auth, tags)
             openFrom: '#login',
             closeTo: '#login',
             templateUrl: '/templates/login.html'
-        });
+        }).then(function(){console.log($scope.loading);},function(){console.log($scope.loading);});
     };
 
     $scope.openSignUp = function()

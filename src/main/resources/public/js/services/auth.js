@@ -21,7 +21,7 @@ angular.module('App').service('auth', function($http, $timeout)
         return Object.keys(data)
                      .map(function(k){ return encodeURIComponent(k) + "=" + encodeURIComponent(data[k])})
                      .join("&");
-    }
+    };
 
     var startRefresh = function(authorization)
     {
@@ -41,7 +41,7 @@ angular.module('App').service('auth', function($http, $timeout)
                 this.logout();
             });
         }, (authorization.expires_in - refreshTimeDelta) * 1000);
-    }
+    };
 
     var save = function(authorization)
     {
@@ -55,17 +55,27 @@ angular.module('App').service('auth', function($http, $timeout)
             $http.defaults.headers.common["Authorization"] = null;
             $timeout.cancel(refresher);
         }
-    }
+    };
 
-    this.login = function(username, password, success, error)
+    var isLoading_ = false;
+    var request_ =
     {
-        var body = {
-            grant_type: "password",
-            username: username,
-            password: password
-        };
+        grant_type: "password",
+        username: "",
+        password: ""
+    };
 
-        $http.post("/oauth/token", encode(body), config).then(function(response)
+    this.isLoading = function()
+    {
+        return isLoading_;
+    };
+
+    this.request = request_;
+
+    this.login = function(success, error)
+    {
+        isLoading_ = true;
+        $http.post("/oauth/token", encode(request_), config).then(function(response)
         {
             save(response.data);
 
@@ -75,9 +85,14 @@ angular.module('App').service('auth', function($http, $timeout)
             {
                 callback();
             });
+
+            isLoading_ = false;
+            request_.username = "";
+            request_.password = "";
         },
         function(er)
         {
+            isLoading_ = false;
             error(er);
         });
     };
