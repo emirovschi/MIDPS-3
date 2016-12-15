@@ -1,4 +1,4 @@
-app.controller("index",function($scope, $mdDialog)
+app.controller("index",function($scope, $mdDialog, auth, tags)
 {
     $scope.searchData = {
         query: '',
@@ -31,4 +31,9 @@ app.controller("index",function($scope, $mdDialog)
             .closeTo('#signup')
         );
       };
+
+      $scope.login = function()
+      {
+        auth.login("emirovschi@gmail.com","123456", function(){ tags.search($scope.searchData); }, function(er){console.log(er);});
+      }
 });
