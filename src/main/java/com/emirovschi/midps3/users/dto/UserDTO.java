@@ -1,14 +1,17 @@
 package com.emirovschi.midps3.users.dto;
 
+import com.emirovschi.midps3.users.validation.Equals;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+@Equals(property = "password", with = "password2", message = "passwords don't match")
 public class UserDTO
 {
     @NotNull
     @Size(min = 1)
-    @Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")
+    @Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$", message = "invalid format")
     private String email;
 
     @NotNull
@@ -18,6 +21,9 @@ public class UserDTO
     @NotNull
     @Size(min = 6, max = 100)
     private String password;
+
+    @NotNull
+    private String password2;
 
     public String getEmail()
     {
@@ -47,5 +53,15 @@ public class UserDTO
     public void setPassword(final String password)
     {
         this.password = password;
+    }
+
+    public String getPassword2()
+    {
+        return password2;
+    }
+
+    public void setPassword2(final String password2)
+    {
+        this.password2 = password2;
     }
 }
