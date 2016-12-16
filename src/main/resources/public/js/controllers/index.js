@@ -22,6 +22,7 @@ app.controller("index", function($scope, $mdDialog, auth, tags)
     {
         $mdDialog.show(
         {
+            controller: 'signup',
             clickOutsideToClose: true,
             openFrom: '#signup',
             closeTo: '#signup',

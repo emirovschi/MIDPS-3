@@ -1,5 +1,5 @@
 <md-dialog flex="30">
-    <form ng-cloak autocomplete="off">
+    <form ng-cloak name="signupForm" role="form" ng-submit="signup()">
         <md-toolbar class="md-primary md-hue-2" md-theme="login">
             <div class="md-toolbar-tools">
                 <h2>Sign Up</h2>
@@ -10,31 +10,26 @@
             <div class="md-dialog-content" layout="column" layout-align="start stretch">
                 <md-input-container class="md-block">
                     <label>Name</label>
-                    <input ng-model="user.name" type="text">
+                    <input ng-model="registerData.name" name="name" type="text" ng-disabled="isLoading()" />
                 </md-input-container>
                 <md-input-container class="md-block">
                     <label>Email</label>
-                    <input ng-model="user.email" type="text">
+                    <input ng-model="registerData.email" name="email" type="text" ng-disabled="isLoading()" />
                 </md-input-container>
                 <md-input-container class="md-block">
                     <label>Password</label>
-                    <input ng-model="user.password" type="password" autocomplete="new-password">
+                    <input ng-model="registerData.password" type="password" name="password" autocomplete="new-password" ng-disabled="isLoading()" />
                 </md-input-container>
                 <md-input-container class="md-block">
                     <label>Repeat password</label>
-                    <input ng-model="user.password2" type="password">
+                    <input ng-model="registerData.password2" type="password" name="password2" ng-disabled="isLoading()" />
                 </md-input-container>
             </div>
         </md-dialog-content>
 
-        <md-dialog-actions layout="row">
-            <span flex></span>
-            <md-button class="md-primary md-raised md-hue-2">
-                Sign Up
-            </md-button>
-            <md-button>
-                Log In
-            </md-button>
+        <md-dialog-actions>
+            <md-button flex class="md-flex md-primary md-raised md-hue-2" ng-disabled="isLoading()" type="submit">Sign Up</md-button>
         </md-dialog-actions>
     </form>
+    <md-progress-linear md-mode="intermediate" ng-show="isLoading()"></md-progress-linear>
 </md-dialog>

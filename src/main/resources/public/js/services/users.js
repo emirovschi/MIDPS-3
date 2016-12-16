@@ -13,9 +13,9 @@ angular.module('App').service('users', function($http)
     this.register = function(success, error)
     {
         isLoading_ = true;
-        return $http.post("/users/", registerData_, function(data)
+        return $http.post("/users", registerData_).then(function(data)
         {
-            success(data.data);
+            success(registerData_);
 
             isLoading_ = false;
             registerData_ = {};
@@ -23,6 +23,7 @@ angular.module('App').service('users', function($http)
         function(data)
         {
             isLoading_ = false;
+            error(data);
         });
     }
 });

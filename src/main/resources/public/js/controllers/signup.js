@@ -1,9 +1,21 @@
-app.controller("login", function($scope, $mdDialog, users)
+app.controller("signup", function($scope, $mdDialog, users, auth)
 {
-    $scope.request = users.registerData;
+    $scope.registerData = users.registerData;
 
     $scope.isLoading = function()
     {
         return users.isLoading();
+    }
+
+    $scope.signup = function()
+    {
+        users.register(function(data)
+        {
+            console.log(data);
+        },
+        function(data)
+        {
+            console.log(data);
+        });
     }
 });
