@@ -15,7 +15,7 @@ app.controller("index", function($scope, $mdDialog, auth, tags)
             openFrom: '#login',
             closeTo: '#login',
             templateUrl: '/templates/login.html'
-        }).then(function(){console.log($scope.loading);},function(){console.log($scope.loading);});
+        });
     };
 
     $scope.openSignUp = function()
@@ -29,9 +29,4 @@ app.controller("index", function($scope, $mdDialog, auth, tags)
             templateUrl: '/templates/signup.html'
         });
     };
-
-    $scope.login = function()
-    {
-        auth.login("emirovschi@gmail.com","123456", function(){ tags.search($scope.searchData); }, function(er){console.log(er);});
-    }
 });

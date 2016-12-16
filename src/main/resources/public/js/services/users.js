@@ -23,7 +23,7 @@ angular.module('App').service('users', function($http)
         function(data)
         {
             isLoading_ = false;
-            error(data);
+            error(data.data);
         });
     }
 });
