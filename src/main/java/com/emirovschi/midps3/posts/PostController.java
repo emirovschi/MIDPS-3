@@ -1,5 +1,7 @@
 package com.emirovschi.midps3.posts;
 
+import com.emirovschi.midps3.converters.Converter;
+import com.emirovschi.midps3.exceptions.dto.ErrorDTO;
 import com.emirovschi.midps3.images.dto.ImageDTO;
 import com.emirovschi.midps3.list.dto.PageDTO;
 import com.emirovschi.midps3.posts.dto.PostDTO;
@@ -37,6 +39,9 @@ public class PostController
 
     @Resource
     private Set<String> allowedContentTypes;
+
+    @Autowired
+    private Converter<Exception, ErrorDTO> errorConverter;
 
     @Secured("ROLE_USER")
     @RequestMapping(method = RequestMethod.POST)
@@ -101,7 +106,8 @@ public class PostController
 
     @ResponseStatus(value= HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(BadImageException.class)
-    public void handleBadImageException()
+    public ErrorDTO handleBadImageException(BadImageException exception)
     {
+        return errorConverter.convert(exception);
     }
 }

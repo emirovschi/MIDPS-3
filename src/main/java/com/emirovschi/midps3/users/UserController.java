@@ -1,5 +1,7 @@
 package com.emirovschi.midps3.users;
 
+import com.emirovschi.midps3.converters.Converter;
+import com.emirovschi.midps3.exceptions.dto.ErrorDTO;
 import com.emirovschi.midps3.users.dto.UserDTO;
 import com.emirovschi.midps3.users.exceptions.UserAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ public class UserController
     @Autowired
     private UserFacade userFacade;
 
+    @Autowired
+    private Converter<Exception, ErrorDTO> errorConverter;
+
     @RequestMapping(method = POST)
     public void register(@Validated @RequestBody final UserDTO user) throws UserAlreadyExistsException
     {
@@ -28,7 +33,8 @@ public class UserController
 
     @ResponseStatus(value= HttpStatus.BAD_REQUEST)
     @ExceptionHandler(UserAlreadyExistsException.class)
-    public void handleBadImageException()
+    public ErrorDTO handleBadImageException(UserAlreadyExistsException exception)
     {
+        return errorConverter.convert(exception);
     }
 }
