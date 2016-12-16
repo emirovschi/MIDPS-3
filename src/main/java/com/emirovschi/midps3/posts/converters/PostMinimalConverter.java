@@ -1,12 +1,12 @@
 package com.emirovschi.midps3.posts.converters;
 
 import com.emirovschi.midps3.converters.Converter;
+import com.emirovschi.midps3.exceptions.NotFoundException;
 import com.emirovschi.midps3.posts.dto.PostDTO;
 import com.emirovschi.midps3.posts.exceptions.BadImageException;
 import com.emirovschi.midps3.posts.models.PostModel;
 import com.emirovschi.midps3.users.UserService;
 import com.emirovschi.midps3.users.dto.UserDTO;
-import com.emirovschi.midps3.users.exceptions.UserNotFound;
 import com.emirovschi.midps3.users.models.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -76,7 +76,7 @@ public class PostMinimalConverter implements Converter<PostModel, PostDTO>
         {
             return ofNullable(getVotesMap(post).get(userService.getSessionUser())).orElse(0);
         }
-        catch (UserNotFound exception)
+        catch (NotFoundException exception)
         {
             return 0;
         }
