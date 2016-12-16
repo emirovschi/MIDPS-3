@@ -60,3 +60,14 @@ md-dialog md-dialog-actions .md-button.md-flex
 {
     margin-right: 8px;
 }
+
+md-toolbar .md-button.md-fab.md-toolbar-avatar
+{
+    padding: 0;
+}
+
+md-toolbar .md-button.md-fab.md-toolbar-avatar img
+{
+    width:100%;
+    height:100%
+}

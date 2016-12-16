@@ -1,5 +1,7 @@
-app.controller("index", function($scope, $mdDialog, auth, tags)
+app.controller("index", function($scope, $mdDialog, auth)
 {
+    $scope.logged = false;
+
     $scope.searchData = {
         query: '',
         tags: [],
@@ -29,4 +31,19 @@ app.controller("index", function($scope, $mdDialog, auth, tags)
             templateUrl: '/templates/signup.html'
         });
     };
+
+    $scope.openMenu = function($mdOpenMenu, $event)
+    {
+        $mdOpenMenu($event);
+    };
+
+    auth.listenLogin(function()
+    {
+        $scope.logged = true;
+    });
+
+    auth.listenLogout(function()
+    {
+        $scope.logged = false;
+    });
 });
