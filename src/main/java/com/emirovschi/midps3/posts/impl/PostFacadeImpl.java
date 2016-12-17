@@ -43,16 +43,16 @@ public class PostFacadeImpl implements PostFacade
     private ImageFacade imageFacade;
 
     @Resource
-    private Converter<PostModel, PostDTO> postMinimalConverter;
-
-    @Resource
-    private Converter<PostModel, PostDTO> postFullConverter;
+    private Converter<PostModel, PostDTO> postConverter;
 
     @Autowired
     private Converter<SearchDTO, Search> searchReverseConverter;
 
-    @Autowired
+    @Resource
     private Converter<Page<PostModel>, PageDTO<PostDTO>> postPageConverter;
+
+    @Resource
+    private Converter<Page<PostModel>, PageDTO<PostDTO>> postVotesPageConverter;
 
     @Resource
     private Converter<PostModel, ImageDTO> imageConverter;
@@ -63,15 +63,27 @@ public class PostFacadeImpl implements PostFacade
     @Override
     public PageDTO<PostDTO> search(final SearchDTO searchDTO, final Pageable pageable)
     {
+        return search(searchDTO, pageable, postPageConverter);
+    }
+
+    @Override
+    public PageDTO<PostDTO> getVotes(final SearchDTO searchDTO, final Pageable pageable)
+    {
+        return search(searchDTO, pageable, postVotesPageConverter);
+    }
+
+    private PageDTO<PostDTO> search(final SearchDTO searchDTO, final Pageable pageable,
+                                   final Converter<Page<PostModel>, PageDTO<PostDTO>> converter)
+    {
         final Search search = searchReverseConverter.convert(searchDTO);
         final Page<PostModel> posts = postService.search(search.getAdds(), search.getExcludes(), search.getFirstId(), pageable);
-        return postPageConverter.convert(posts);
+        return converter.convert(posts);
     }
 
     @Override
     public PostDTO getPost(final long id)
     {
-        return postFullConverter.convert(postService.getPostById(id));
+        return postConverter.convert(postService.getPostById(id));
     }
 
     @Override
@@ -124,7 +136,7 @@ public class PostFacadeImpl implements PostFacade
             post.setPreview(new SerialBlob(imageFacade.getPreview(image, imageType)));
             post.setUser(userService.getSessionUser());
             postService.save(post);
-            return postMinimalConverter.convert(post);
+            return postConverter.convert(post);
         }
         catch (SQLException | IOException e)
         {

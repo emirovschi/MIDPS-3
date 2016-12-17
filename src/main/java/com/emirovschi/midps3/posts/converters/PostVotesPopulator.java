@@ -1,64 +1,39 @@
 package com.emirovschi.midps3.posts.converters;
 
-import com.emirovschi.midps3.converters.Converter;
+import com.emirovschi.midps3.converters.Populator;
 import com.emirovschi.midps3.exceptions.NotFoundException;
 import com.emirovschi.midps3.posts.dto.PostDTO;
-import com.emirovschi.midps3.posts.exceptions.BadImageException;
 import com.emirovschi.midps3.posts.models.PostModel;
 import com.emirovschi.midps3.users.UserService;
-import com.emirovschi.midps3.users.dto.UserDTO;
 import com.emirovschi.midps3.users.models.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Map;
 import java.util.stream.IntStream;
 
 import static java.util.Collections.emptyMap;
 import static java.util.Optional.ofNullable;
 
-@Component("postMinimalConverter")
-public class PostMinimalConverter implements Converter<PostModel, PostDTO>
+@Component("postVotesPopulator")
+public class PostVotesPopulator implements Populator<PostModel, PostDTO>
 {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private Converter<UserModel, UserDTO> userConverter;
-
     @Override
-    public PostDTO convert(final PostModel post)
+    public void populate(final PostModel source, final PostDTO target)
     {
-        final PostDTO postDTO = new PostDTO();
-        postDTO.setTitle(post.getTitle());
-        postDTO.setId(post.getId());
-        postDTO.setUps(getUps(post));
-        postDTO.setDowns(getDowns(post));
-        postDTO.setUserVote(getUserVote(post));
-        postDTO.setUser(userConverter.convert(post.getUser()));
-
-        try
-        {
-            final BufferedImage preview = ImageIO.read(post.getPreview().getBinaryStream());
-            postDTO.setWidth(preview.getWidth());
-            postDTO.setHeight(preview.getHeight());
-        }
-        catch (IOException | SQLException e)
-        {
-            throw new BadImageException();
-        }
-
-        return postDTO;
+        target.setId(source.getId());
+        target.setUps(getUps(source));
+        target.setDowns(getDowns(source));
+        target.setUserVote(getUserVote(source));
     }
 
     private int getUps(final PostModel post)
-    {
-        return getVotes(post).filter(i -> i > 0).sum();
-    }
+{
+    return getVotes(post).filter(i -> i > 0).sum();
+}
 
     private int getDowns(final PostModel post)
     {

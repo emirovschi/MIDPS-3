@@ -13,6 +13,8 @@ public interface PostFacade
 {
     PageDTO<PostDTO> search(SearchDTO search, Pageable pageable);
 
+    PageDTO<PostDTO> getVotes(SearchDTO search, Pageable pageable);
+
     PostDTO getPost(long id);
 
     ImageDTO getPostImage(long id);

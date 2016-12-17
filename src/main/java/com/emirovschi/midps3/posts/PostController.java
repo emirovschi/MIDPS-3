@@ -62,6 +62,12 @@ public class PostController
         return postFacade.search(search, pageable);
     }
 
+    @RequestMapping(value = "/votes", method = RequestMethod.POST)
+    public PageDTO<PostDTO> getPostsVotes(@RequestBody final SearchDTO search, @PageableDefault final Pageable pageable)
+    {
+        return postFacade.getVotes(search, pageable);
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public PostDTO getPost(@PathVariable final long id)
     {

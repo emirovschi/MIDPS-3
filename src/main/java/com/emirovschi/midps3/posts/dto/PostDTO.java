@@ -2,19 +2,16 @@ package com.emirovschi.midps3.posts.dto;
 
 import com.emirovschi.midps3.users.dto.UserDTO;
 
-import java.util.List;
-
 public class PostDTO
 {
     private long id;
     private String title;
-    private int ups;
-    private int downs;
-    private int userVote;
-    private List<CommentDTO> comments;
+    private Integer ups;
+    private Integer downs;
+    private Integer userVote;
     private UserDTO user;
-    private int width;
-    private int height;
+    private Integer width;
+    private Integer height;
 
     public long getId()
     {
@@ -36,42 +33,33 @@ public class PostDTO
         this.title = title;
     }
 
-    public int getUps()
+    public Integer getUps()
     {
         return ups;
     }
 
-    public void setUps(final int ups)
+    public void setUps(final Integer ups)
     {
         this.ups = ups;
     }
 
-    public int getDowns()
+    public Integer getDowns()
     {
         return downs;
     }
 
-    public void setDowns(final int downs)
+    public void setDowns(final Integer downs)
     {
         this.downs = downs;
     }
 
-    public List<CommentDTO> getComments()
-    {
-        return comments;
-    }
 
-    public void setComments(final List<CommentDTO> comments)
-    {
-        this.comments = comments;
-    }
-
-    public int getUserVote()
+    public Integer getUserVote()
     {
         return userVote;
     }
 
-    public void setUserVote(final int userVote)
+    public void setUserVote(final Integer userVote)
     {
         this.userVote = userVote;
     }
@@ -86,22 +74,22 @@ public class PostDTO
         this.user = user;
     }
 
-    public int getWidth()
+    public Integer getWidth()
     {
         return width;
     }
 
-    public void setWidth(final int width)
+    public void setWidth(final Integer width)
     {
         this.width = width;
     }
 
-    public int getHeight()
+    public Integer getHeight()
     {
         return height;
     }
 
-    public void setHeight(final int height)
+    public void setHeight(final Integer height)
     {
         this.height = height;
     }

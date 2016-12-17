@@ -8,15 +8,15 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
-@Component("postPageConverter")
-public class PostPageConverter extends PageConverter<PostModel, PostDTO>
+@Component("postVotesPageConverter")
+public class PostVotesPageConverter extends PageConverter<PostModel, PostDTO>
 {
     @Resource
-    private Converter<PostModel, PostDTO> postConverter;
+    private Converter<PostModel, PostDTO> postVotesConverter;
 
     @Override
     protected Converter<PostModel, PostDTO> getItemConverter()
     {
-        return postConverter;
+        return postVotesConverter;
     }
 }
