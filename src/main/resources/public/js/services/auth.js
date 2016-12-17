@@ -1,4 +1,4 @@
-angular.module('App').service('auth', function($http, $timeout)
+app.service('auth', function($http, $timeout)
 {
     var client_login = "web";
     var client_password = "";
@@ -90,10 +90,6 @@ angular.module('App').service('auth', function($http, $timeout)
             refresher = startRefresh(authorization);
 
             isLogged_ = true;
-            loginCallbacks.forEach(function(callback)
-            {
-                callback();
-            });
         }
         else
         {
@@ -102,10 +98,6 @@ angular.module('App').service('auth', function($http, $timeout)
             $timeout.cancel(refresher);
 
             isLogged_ = false;
-            logoutCallbacks.forEach(function(callback)
-            {
-                callback();
-            });
         }
     };
 
@@ -116,6 +108,11 @@ angular.module('App').service('auth', function($http, $timeout)
         {
             save(response.data);
 
+            loginCallbacks.forEach(function(callback)
+            {
+                callback();
+            });
+
             success();
 
             isLoading_ = false;
@@ -124,8 +121,14 @@ angular.module('App').service('auth', function($http, $timeout)
         },
         function(er)
         {
-            isLoading_ = false;
             error(er);
+
+            logoutCallbacks.forEach(function(callback)
+            {
+                callback();
+            });
+
+            isLoading_ = false;
         });
     };
 

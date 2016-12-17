@@ -16,11 +16,11 @@
                     <span>Site</span>
                 </h2>
                 <span flex=""></span>
-                <div ng-if="!logged">
+                <div ng-if="!logged()">
                     <md-button class="md-raised" id="login" ng-click="openLogIn()">Log In</md-button>
                     <md-button class="md-primary" id="signup" ng-click="openSignUp()">Sign Up</md-button>
                 </div>
-                <div ng-if="logged" layout="row" layout-align="center center">
+                <div ng-if="logged()" layout="row" layout-align="center center">
                     <md-button class="md-icon-button" id="upload">
                         <md-icon><i class="material-icons">file_upload</i></md-icon>
                     </md-button>

@@ -1,4 +1,4 @@
-angular.module('App').run(function(auth)
+app.run(function(auth)
 {
     if (localStorage.refresh_token != null)
     {

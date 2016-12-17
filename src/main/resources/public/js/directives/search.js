@@ -1,4 +1,4 @@
-angular.module('App').directive('search', function(tags){
+app.directive('search', function(tags){
     return {
         restrict: 'E',
         scope:

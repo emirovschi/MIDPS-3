@@ -1,4 +1,4 @@
-angular.module('App').service('users', function($http)
+app.service('users', function($http)
 {
     var isLoading_ = false;
     var registerData_ = {};

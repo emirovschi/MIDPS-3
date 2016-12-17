@@ -1,4 +1,4 @@
-angular.module('App').service('tags', function($http)
+app.service('tags', function($http)
 {
     this.search = function (searchData)
     {

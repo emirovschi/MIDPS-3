@@ -8,11 +8,13 @@
                 </md-card-header-text>
                 <span flex></span>
                 <div class="button-list">
-                    <md-button class="md-primary" md-theme="success" aria-label="Comment" ng-disabled="true">
+                    <md-button ng-class="{'md-primary': item.userVote > 0, 'md-secondary': item.userVote <= 0}"
+                               md-theme="success" ng-disabled="!logged()" ng-click="voteUp(item)">
                         <md-icon><i class="material-icons">thumb_up</i></md-icon>
                         {{item.ups}}
                     </md-button>
-                    <md-button class="md-primary" md-theme="error" aria-label="Comment" ng-disabled="true">
+                    <md-button ng-class="{'md-primary': item.userVote < 0, 'md-secondary': item.userVote >= 0}"
+                               md-theme="error" ng-disabled="!logged()" ng-click="voteDown(item)">
                         <md-icon><i class="material-icons">thumb_down</i></md-icon>
                         {{item.downs}}
                     </md-button>

@@ -1,4 +1,4 @@
-angular.module('App').directive('postList', function(posts){
+app.directive('postList', function(posts, auth){
     return {
         restrict: 'E',
         scope:
@@ -12,6 +12,11 @@ angular.module('App').directive('postList', function(posts){
             var totalPages = -1;
             var page = 0;
             var promise;
+
+            $scope.logged = function()
+            {
+                return auth.isLogged();
+            }
 
             $scope.$watch("searchData.tags", function(newVal, oldVal)
             {
@@ -63,7 +68,46 @@ angular.module('App').directive('postList', function(posts){
                         promise = null;
                     });
                 }
+            };
+
+            var resetVote = function(item)
+            {
+                if (item.userVote > 0)
+                {
+                    item.ups--;
+                }
+                else if (item.userVote < 0)
+                {
+                    item.downs--;
+                }
             }
+
+            $scope.voteUp = function(item)
+            {
+                resetVote(item);
+                item.ups++;
+                item.userVote = 1;
+                posts.voteUp(item.id);
+            };
+
+            $scope.voteDown = function(item)
+            {
+                resetVote(item);
+                item.downs++;
+                item.userVote = -1;
+                posts.voteDown(item.id);
+            };
+
+            auth.listenLogin(function()
+            {
+                posts.getVotes(page * pageSize, $scope.searchData).then(function(data)
+                {
+                    for(i = 0; i < $scope.posts.length; i++)
+                    {
+                        $scope.posts[i].userVote = data.data.items[i].userVote;
+                    }
+                });
+            });
         }
     }
 });

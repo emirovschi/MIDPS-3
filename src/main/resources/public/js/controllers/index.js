@@ -1,6 +1,9 @@
 app.controller("index", function($scope, $mdDialog, auth)
 {
-    $scope.logged = false;
+    $scope.logged = function()
+    {
+        return auth.isLogged();
+    };
 
     $scope.searchData = {
         query: '',
@@ -41,14 +44,4 @@ app.controller("index", function($scope, $mdDialog, auth)
     {
         auth.logout();
     }
-
-    auth.listenLogin(function()
-    {
-        $scope.logged = true;
-    });
-
-    auth.listenLogout(function()
-    {
-        $scope.logged = false;
-    });
 });

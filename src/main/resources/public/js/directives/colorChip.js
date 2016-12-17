@@ -1,4 +1,4 @@
-angular.module('App').directive('colorChip', function(){
+app.directive('colorChip', function(){
     return {
         restrict: 'A',
         scope: {
