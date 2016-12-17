@@ -21,7 +21,7 @@
                     <md-button class="md-primary" id="signup" ng-click="openSignUp()">Sign Up</md-button>
                 </div>
                 <div ng-if="logged()" layout="row" layout-align="center center">
-                    <md-button class="md-icon-button" id="upload">
+                    <md-button class="md-icon-button" ng-href="/upload">
                         <md-icon><i class="material-icons">file_upload</i></md-icon>
                     </md-button>
                     <md-menu md-position-mode="target-right target" md-offset="4 -8" md-theme="default">
@@ -43,7 +43,7 @@
                             </md-menu-item>
                             <md-menu-divider></md-menu-divider>
                             <md-menu-item>
-                                <md-button ng-click="ctrl.checkVoicemail()">
+                                <md-button ng-href="/account">
                                     <md-icon><i class="material-icons">account_circle</i></md-icon>
                                     Account settings
                                 </md-button>
@@ -61,14 +61,7 @@
             </div>
         </md-toolbar>
 
-        <div layout="row" flex>
-            <md-sidenav md-is-open="true" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" class="md-primary" layout="column" layout-align="top stretch" flex-xs="100" flex-sm="noshrink" flex-gt-sm="20">
-                <search search-data="searchData"></search>
-            </md-sidenav>
-            <md-content flex layout="row" layout-align="center stretch">
-                <post-list flex search-data="searchData" layout="column" layout-align="none stretch"></post-list>
-            </md-content>
-        </div>
+        <div layout="row" ng-view flex></div>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
@@ -79,6 +72,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.js"></script>
     <script src="/js/lib/angular-vs-repeat.js"></script>
     <script src="/js/module.js"></script>
+    <script src="/js/router.js"></script>
     <script src="/js/services/tags.js"></script>
     <script src="/js/services/posts.js"></script>
     <script src="/js/services/users.js"></script>
@@ -89,5 +83,6 @@
     <script src="/js/controllers/login.js"></script>
     <script src="/js/controllers/signup.js"></script>
     <script src="/js/controllers/index.js"></script>
+    <script src="/js/controllers/home.js"></script>
 </body>
 </html>

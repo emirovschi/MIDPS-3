@@ -5,12 +5,6 @@ app.controller("index", function($scope, $mdDialog, auth)
         return auth.isLogged();
     };
 
-    $scope.searchData = {
-        query: '',
-        tags: [],
-        users: []
-    };
-
     $scope.openLogIn = function()
     {
         $mdDialog.show(
