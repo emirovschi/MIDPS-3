@@ -37,6 +37,11 @@ app.controller("index", function($scope, $mdDialog, auth)
         $mdOpenMenu($event);
     };
 
+    $scope.logout = function()
+    {
+        auth.logout();
+    }
+
     auth.listenLogin(function()
     {
         $scope.logged = true;

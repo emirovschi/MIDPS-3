@@ -8,6 +8,27 @@ angular.module('App').service('auth', function($http, $timeout)
     var refresher = null;
     var refreshTimeDelta = 15;
 
+    var isLoading_ = false;
+    var isLogged_ = false;
+    var request_ =
+    {
+        grant_type: "password",
+        username: "",
+        password: ""
+    };
+
+    this.request = request_;
+
+    this.isLoading = function()
+    {
+        return isLoading_;
+    };
+
+    this.isLogged = function()
+    {
+        return isLogged_;
+    };
+
     var config = {
         headers:
         {
@@ -23,24 +44,41 @@ angular.module('App').service('auth', function($http, $timeout)
                      .join("&");
     };
 
+    var refresh = function(authorization, shouldSave)
+    {
+        var body = {
+            grant_type: "refresh_token",
+            refresh_token: authorization.refresh_token
+        };
+
+        $http.post("/oauth/token", encode(body), config).then(function(response)
+        {
+            if (shouldSave)
+            {
+                save(response.data);
+            }
+
+            return startRefresh(response.data);
+        },
+        function(er)
+        {
+            save();
+        });
+    };
+
     var startRefresh = function(authorization)
     {
-        return $timeout(function()
+        if(authorization.expires_in < 0)
         {
-            var body = {
-                grant_type: "refresh_token",
-                refresh_token: authorization.refresh_token
-            };
-
-            $http.post("/oauth/token", encode(body), config).then(function(response)
+            return refresh(authorization, true);
+        }
+        else
+        {
+            return $timeout(function()
             {
-                refresher = startRefresh(response.data);
-            },
-            function(er)
-            {
-                this.logout();
-            });
-        }, (authorization.expires_in - refreshTimeDelta) * 1000);
+                startRefresh = refresh(authorization, false);
+            }, (authorization.expires_in - refreshTimeDelta) * 1000);
+        }
     };
 
     var save = function(authorization)
@@ -48,29 +86,28 @@ angular.module('App').service('auth', function($http, $timeout)
         if (authorization != null && authorization.access_token != null)
         {
             $http.defaults.headers.common["Authorization"] = "Bearer " + authorization.access_token;
+            localStorage.refresh_token = authorization.refresh_token;
             refresher = startRefresh(authorization);
+
+            isLogged_ = true;
+            loginCallbacks.forEach(function(callback)
+            {
+                callback();
+            });
         }
         else
         {
             $http.defaults.headers.common["Authorization"] = null;
+            localStorage.removeItem("refresh_token");
             $timeout.cancel(refresher);
+
+            isLogged_ = false;
+            logoutCallbacks.forEach(function(callback)
+            {
+                callback();
+            });
         }
     };
-
-    var isLoading_ = false;
-    var request_ =
-    {
-        grant_type: "password",
-        username: "",
-        password: ""
-    };
-
-    this.isLoading = function()
-    {
-        return isLoading_;
-    };
-
-    this.request = request_;
 
     this.login = function(success, error)
     {
@@ -80,11 +117,6 @@ angular.module('App').service('auth', function($http, $timeout)
             save(response.data);
 
             success();
-
-            loginCallbacks.forEach(function(callback)
-            {
-                callback();
-            });
 
             isLoading_ = false;
             request_.username = "";
@@ -100,11 +132,6 @@ angular.module('App').service('auth', function($http, $timeout)
     this.logout = function()
     {
         save();
-
-        logoutCallbacks.forEach(function(callback)
-        {
-            callback();
-        });
     };
 
     this.listenLogin = function(callback)
@@ -116,4 +143,14 @@ angular.module('App').service('auth', function($http, $timeout)
     {
         logoutCallbacks.push(callback);
     };
+
+    this.refresh = function(refresh_token)
+    {
+        var authorization =
+        {
+            refresh_token: refresh_token,
+            expires_in: -1
+        };
+        refresher = startRefresh(authorization);
+    }
 });
