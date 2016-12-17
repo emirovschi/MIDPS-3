@@ -44,7 +44,7 @@ app.service('auth', function($http, $timeout)
                      .join("&");
     };
 
-    var refresh = function(authorization, shouldSave)
+    var refresh = function(authorization)
     {
         var body = {
             grant_type: "refresh_token",
@@ -53,12 +53,7 @@ app.service('auth', function($http, $timeout)
 
         $http.post("/oauth/token", encode(body), config).then(function(response)
         {
-            if (shouldSave)
-            {
-                save(response.data);
-            }
-
-            return startRefresh(response.data);
+            save(response.data);
         },
         function(er)
         {
@@ -70,13 +65,13 @@ app.service('auth', function($http, $timeout)
     {
         if(authorization.expires_in < 0)
         {
-            return refresh(authorization, true);
+            return refresh(authorization);
         }
         else
         {
             return $timeout(function()
             {
-                startRefresh = refresh(authorization, false);
+                refresh(authorization);
             }, (authorization.expires_in - refreshTimeDelta) * 1000);
         }
     };
