@@ -9,6 +9,8 @@ import javax.validation.constraints.Size;
 @Equals(property = "password", with = "password2", message = "passwords don't match")
 public class UserDTO
 {
+    private Long id;
+
     @NotNull
     @Size(min = 1)
     @Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$", message = "invalid format")
@@ -24,6 +26,16 @@ public class UserDTO
 
     @NotNull
     private String password2;
+
+    public Long getId()
+    {
+        return id;
+    }
+
+    public void setId(final Long id)
+    {
+        this.id = id;
+    }
 
     public String getEmail()
     {

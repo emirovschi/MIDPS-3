@@ -1,6 +1,7 @@
 package com.emirovschi.midps3.users.impl;
 
 import com.emirovschi.midps3.converters.Converter;
+import com.emirovschi.midps3.images.dto.ImageDTO;
 import com.emirovschi.midps3.users.dto.UserDTO;
 import com.emirovschi.midps3.users.UserFacade;
 import com.emirovschi.midps3.users.models.UserModel;
@@ -21,10 +22,19 @@ public class UserFacadeImpl implements UserFacade
     @Autowired
     private Converter<UserDTO, UserModel> userReverseConverter;
 
+    @Autowired
+    private Converter<UserModel, ImageDTO> imageConverter;
+
     @Override
     public UserDTO getSessionUser()
     {
         return userConverter.convert(userService.getSessionUser());
+    }
+
+    @Override
+    public ImageDTO getAvatar(final long id)
+    {
+        return imageConverter.convert(userService.getUserById(id));
     }
 
     @Override

@@ -30,6 +30,11 @@ public class UserModel
     @JoinTable(name="userRoles", joinColumns=@JoinColumn(name="user"), inverseJoinColumns=@JoinColumn(name="role"))
     private List<RoleModel> roles;
 
+    public long getId()
+    {
+        return id;
+    }
+
     public String getEmail()
     {
         return email;

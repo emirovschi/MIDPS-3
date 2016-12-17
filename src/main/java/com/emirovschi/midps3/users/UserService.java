@@ -14,4 +14,6 @@ public interface UserService
     UserModel getSessionUser();
 
     Set<UserModel> getUsers(Set<String> users);
+
+    UserModel getUserById(long id);
 }

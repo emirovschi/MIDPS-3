@@ -26,7 +26,7 @@
                     </md-button>
                     <md-menu md-position-mode="target-right target" md-offset="4 -8" md-theme="default">
                         <md-button class="md-toolbar-avatar md-fab md-mini" ng-click="openMenu($mdOpenMenu, $event)">
-                            <img flex ng-src="/posts/42/preview" />
+                            <img flex ng-src="/users/{{user.id}}/avatar" />
                         </md-button>
                         <md-menu-content width="4" class="md-avatar">
                             <md-menu-item>
@@ -37,7 +37,7 @@
                                     </div>
                                     <span flex></span>
                                     <md-button class="md-toolbar-avatar md-fab md-mini" ng-disabled="true">
-                                        <img ng-click="" flex ng-src="/posts/42/preview" />
+                                        <img ng-click="" flex ng-src="/users/{{user.id}}/avatar" />
                                     </md-button>
                                 </div>
                             </md-menu-item>

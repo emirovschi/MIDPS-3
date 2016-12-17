@@ -46,4 +46,10 @@ public class UserServiceImpl implements UserService
     {
         return users.stream().map(userRepository::findByEmail).filter(Objects::nonNull).collect(Collectors.toSet());
     }
+
+    @Override
+    public UserModel getUserById(final long id)
+    {
+        return userRepository.findOne(id);
+    }
 }
