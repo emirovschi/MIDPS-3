@@ -3,12 +3,10 @@ package com.emirovschi.midps3.tags.impl;
 import com.emirovschi.midps3.tags.TagRepository;
 import com.emirovschi.midps3.tags.TagService;
 import com.emirovschi.midps3.tags.models.TagModel;
-import com.emirovschi.midps3.users.models.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -50,6 +48,6 @@ public class TagServiceImpl implements TagService
     @Override
     public List<TagModel> getTags(final String query, final Set<TagModel> adds, final Set<TagModel> excludes)
     {
-        return tagRepository.findTags(query, adds, excludes);
+        return tagRepository.findTags(query, ofNullable(adds).map(Collection::size).orElse(0), adds, excludes);
     }
 }

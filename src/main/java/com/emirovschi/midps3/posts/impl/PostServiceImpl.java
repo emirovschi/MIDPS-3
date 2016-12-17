@@ -1,9 +1,9 @@
 package com.emirovschi.midps3.posts.impl;
 
+import com.emirovschi.midps3.exceptions.NotFoundException;
 import com.emirovschi.midps3.posts.CommentRepository;
 import com.emirovschi.midps3.posts.PostRepository;
 import com.emirovschi.midps3.posts.PostService;
-import com.emirovschi.midps3.exceptions.NotFoundException;
 import com.emirovschi.midps3.posts.models.CommentModel;
 import com.emirovschi.midps3.posts.models.PostModel;
 import com.emirovschi.midps3.tags.models.TagModel;
@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +34,7 @@ public class PostServiceImpl implements PostService
     @Override
     public Page<PostModel> search(final Set<TagModel> adds, final Set<TagModel> excludes, final Long firstId, final Pageable pageable)
     {
-        return postRepository.search(adds, excludes, firstId, pageable);
+        return postRepository.search(ofNullable(adds).map(Collection::size).orElse(0), adds, excludes, firstId, pageable);
     }
 
     @Override

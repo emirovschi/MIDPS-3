@@ -17,7 +17,7 @@ import static com.emirovschi.midps3.posts.PostConstants.SEARCH_POSTS;
 public interface PostRepository extends JpaRepository<PostModel, Long>
 {
     @Query(SEARCH_POSTS)
-    Page<PostModel> search(@Param("adds") Set<TagModel> adds, @Param("excludes") Set<TagModel> excludes,
+    Page<PostModel> search(@Param("addsCount") long count, @Param("adds") Set<TagModel> adds, @Param("excludes") Set<TagModel> excludes,
                            @Param("firstId") final Long firstId, Pageable pageable);
 
     PostModel findById(long id);
