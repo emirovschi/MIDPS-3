@@ -10,6 +10,7 @@ app.service('auth', function($http, $timeout)
 
     var isLoading_ = false;
     var isLogged_ = false;
+
     var request_ =
     {
         grant_type: "password",
@@ -51,7 +52,9 @@ app.service('auth', function($http, $timeout)
             refresh_token: authorization.refresh_token
         };
 
-        $http.post("/oauth/token", encode(body), config).then(function(response)
+        var promise = $http.post("/oauth/token", encode(body), config);
+
+        promise.then(function(response)
         {
             save(response.data);
         },
@@ -59,6 +62,8 @@ app.service('auth', function($http, $timeout)
         {
             save();
         });
+
+        return promise;
     };
 
     var startRefresh = function(authorization)
@@ -142,13 +147,22 @@ app.service('auth', function($http, $timeout)
         logoutCallbacks.push(callback);
     };
 
-    this.refresh = function(refresh_token)
+    var checkedLog_ = new Promise(function(resolve)
     {
-        var authorization =
+        if (localStorage.refresh_token != null)
         {
-            refresh_token: refresh_token,
-            expires_in: -1
-        };
-        refresher = startRefresh(authorization);
-    }
+            var authorization =
+            {
+                refresh_token: localStorage.refresh_token,
+                expires_in: -1
+            };
+            refresh(authorization).then(resolve, resolve);
+        }
+        else
+        {
+            resolve();
+        }
+    });
+
+    this.checkedLog = checkedLog_;
 });

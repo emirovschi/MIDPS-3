@@ -18,15 +18,18 @@ app.directive('postList', function(posts, auth){
                 return auth.isLogged();
             }
 
-            $scope.$watch("searchData.tags", function(newVal, oldVal)
+            auth.checkedLog.then(function()
             {
-                page = 0;
-                totalPages = -1;
-                promise = null;
-                $scope.searchData.firstId = null;
-                $scope.posts = [];
-                $scope.fetch();
-            }, true);
+                $scope.$watch("searchData.tags", function(newVal, oldVal)
+                {
+                    page = 0;
+                    totalPages = -1;
+                    promise = null;
+                    $scope.searchData.firstId = null;
+                    $scope.posts = [];
+                    $scope.fetch();
+                }, true);
+            });
 
             $scope.posts = [];
 
