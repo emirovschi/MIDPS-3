@@ -1,4 +1,4 @@
-app.controller("index", function($scope, $mdDialog, auth)
+app.controller("index", function($scope, $mdDialog, auth, users)
 {
     $scope.logged = function()
     {
@@ -38,4 +38,22 @@ app.controller("index", function($scope, $mdDialog, auth)
     {
         auth.logout();
     }
+
+    var updateUser = function()
+    {
+        users.getUser().then(function(data)
+        {
+            $scope.user = data.data;
+        });
+    }
+
+    auth.listenLogin(updateUser);
+
+    auth.checkedLog.then(function()
+    {
+        if (auth.isLogged())
+        {
+            updateUser();
+        }
+    });
 });

@@ -13,6 +13,7 @@ public class UserConverter implements Converter<UserModel, UserDTO>
     {
         final UserDTO userDTO = new UserDTO();
         userDTO.setName(user.getName());
+        userDTO.setEmail(user.getEmail());
         return userDTO;
     }
 }

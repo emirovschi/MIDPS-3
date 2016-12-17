@@ -26,4 +26,9 @@ app.service('users', function($http)
             error(data.data);
         });
     }
+
+    this.getUser = function()
+    {
+        return $http.get("/users");
+    }
 });

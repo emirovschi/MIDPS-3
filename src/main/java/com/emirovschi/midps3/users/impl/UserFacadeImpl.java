@@ -16,7 +16,16 @@ public class UserFacadeImpl implements UserFacade
     private UserService userService;
 
     @Autowired
+    private Converter<UserModel, UserDTO> userConverter;
+
+    @Autowired
     private Converter<UserDTO, UserModel> userReverseConverter;
+
+    @Override
+    public UserDTO getSessionUser()
+    {
+        return userConverter.convert(userService.getSessionUser());
+    }
 
     @Override
     public void register(final UserDTO user) throws UserAlreadyExistsException
