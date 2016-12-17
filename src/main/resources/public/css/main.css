@@ -99,3 +99,9 @@ div.md-menu-title .md-subhead
     color: rgba(0,0,0,0.54);
     line-height:16px;
 }
+
+md-card md-card-header md-card-avatar + md-card-header-text .md-title
+{
+    font-size:16;
+    font-weight:bold;
+}
