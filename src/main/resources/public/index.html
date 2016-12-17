@@ -24,22 +24,34 @@
                     <md-button class="md-icon-button" id="upload">
                         <md-icon><i class="material-icons">file_upload</i></md-icon>
                     </md-button>
-                    <md-menu md-position-mode="target-right target" md-theme="default">
+                    <md-menu md-position-mode="target-right target" md-offset="4 -8" md-theme="default">
                         <md-button class="md-toolbar-avatar md-fab md-mini" ng-click="openMenu($mdOpenMenu, $event)">
-                            <img flex ng-src="/posts/9/preview" />
+                            <img flex ng-src="/posts/42/preview" />
                         </md-button>
-                        <md-menu-content width="4">
+                        <md-menu-content width="4" class="md-avatar">
                             <md-menu-item>
-                                <div>
-                                    <md-button class="md-toolbar-avatar md-fab md-mini" ng-click="openMenu($mdOpenMenu, $event)">
-                                        <img flex ng-src="/posts/9/preview" />
+                                <div layout="row">
+                                    <div layout="column" class="md-menu-title">
+                                        <span class="md-title">Eugen</span>
+                                        <span class="md-subhead">emirovschi@gmail.com</span>
+                                    </div>
+                                    <span flex></span>
+                                    <md-button class="md-toolbar-avatar md-fab md-mini" ng-disabled="true">
+                                        <img ng-click="" flex ng-src="/posts/42/preview" />
                                     </md-button>
                                 </div>
                             </md-menu-item>
+                            <md-menu-divider></md-menu-divider>
                             <md-menu-item>
-                                <md-button disabled="disabled" ng-click="ctrl.checkVoicemail()">
-                                    <md-icon md-svg-icon="call:voicemail"></md-icon>
-                                    Check voicemail
+                                <md-button ng-click="ctrl.checkVoicemail()">
+                                    <md-icon><i class="material-icons">account_circle</i></md-icon>
+                                    Account settings
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item>
+                                <md-button ng-click="ctrl.checkVoicemail()">
+                                    <md-icon><i class="material-icons">exit_to_app</i></md-icon>
+                                    Log out
                                 </md-button>
                             </md-menu-item>
                         </md-menu-content>
