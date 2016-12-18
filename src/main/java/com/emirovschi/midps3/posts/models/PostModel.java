@@ -2,9 +2,9 @@ package com.emirovschi.midps3.posts.models;
 
 import com.emirovschi.midps3.tags.models.TagModel;
 import com.emirovschi.midps3.users.models.UserModel;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,10 +32,10 @@ public class PostModel
 
     private String title;
 
-    @Type(type="org.hibernate.type.BinaryType")
+    @Column(columnDefinition="BYTEA NOT NULL")
     private byte[] image;
 
-    @Type(type="org.hibernate.type.BinaryType")
+    @Column(columnDefinition="BYTEA NOT NULL")
     private byte[] preview;
 
     private String imageType;
