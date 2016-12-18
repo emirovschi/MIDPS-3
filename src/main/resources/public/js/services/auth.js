@@ -6,7 +6,7 @@ app.service('auth', function($http, $timeout, $location)
     var logoutCallbacks = [];
     var authToken = btoa(client_login + ":" + client_password);
     var refresher = null;
-    var refreshTimeDelta = 15;
+    var refreshTimeDelta = 20;
 
     var isLoading_ = false;
     var isLogged_ = false;
