@@ -12,7 +12,7 @@ app.config(function($routeProvider, $locationProvider)
         templateUrl : '/templates/upload.html'
     })
     .when("/account", {
-        title: 'Panel',
+        title: 'Account settings',
         controller: 'account',
         templateUrl : '/templates/account.html'
     })

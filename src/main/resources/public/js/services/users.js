@@ -31,4 +31,9 @@ app.service('users', function($http)
     {
         return $http.get("/users");
     }
+
+    this.updateUser = function(user)
+    {
+        return $http.patch("/users", user)
+    }
 });

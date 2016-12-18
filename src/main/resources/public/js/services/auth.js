@@ -1,4 +1,4 @@
-app.service('auth', function($http, $timeout)
+app.service('auth', function($http, $timeout, $location)
 {
     var client_login = "web";
     var client_password = "";
@@ -98,6 +98,7 @@ app.service('auth', function($http, $timeout)
             $timeout.cancel(refresher);
 
             isLogged_ = false;
+            $location.url("/");
         }
     };
 
