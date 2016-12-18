@@ -4,6 +4,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.css">
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/js/lib/upload/lf-ng-md-file-input.css">
     <base href="/">
 </head>
 <body ng-app="App" layout="column">
@@ -13,7 +14,7 @@
         <md-toolbar class="md-hue-2" md-theme="login">
             <div class="md-toolbar-tools">
                 <h2>
-                    <span>Site</span>
+                    <span><a ng-href="/">Site</a></span>
                 </h2>
                 <span flex=""></span>
                 <div ng-if="!logged()">
@@ -70,6 +71,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.js"></script>
+    <script src="/js/lib/upload/lf-ng-md-file-input.js"></script>
     <script src="/js/lib/angular-vs-repeat.js"></script>
     <script src="/js/module.js"></script>
     <script src="/js/router.js"></script>
@@ -84,5 +86,6 @@
     <script src="/js/controllers/signup.js"></script>
     <script src="/js/controllers/index.js"></script>
     <script src="/js/controllers/home.js"></script>
+    <script src="/js/controllers/upload.js"></script>
 </body>
 </html>

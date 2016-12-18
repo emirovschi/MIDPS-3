@@ -1,8 +1,10 @@
-var app = angular.module('App', ['ngMaterial', 'ngMessages', 'ngAnimate', 'ngRoute', 'vs-repeat']);
+var app = angular.module('App', ['ngMaterial', 'ngMessages', 'ngAnimate', 'ngRoute', 'vs-repeat', 'lfNgMdFileInput']);
 
 app.config(function($mdThemingProvider) {
     $mdThemingProvider.theme('default')
-      .primaryPalette('light-blue');
+      .primaryPalette('light-blue',{
+        'default': '800'
+      });
 
     $mdThemingProvider.theme('login')
       .primaryPalette('light-blue',{

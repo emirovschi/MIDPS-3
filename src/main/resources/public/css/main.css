@@ -8,11 +8,18 @@
     background-color: rgb(76,175,80);
 }
 
-md-input-container.hide-error-message {
+md-input-container.hide-error-message
+{
     margin-bottom:0;
 }
 
-md-input-container.hide-error-message .md-errors-spacer {
+md-input-container.hide-error-message .md-errors-spacer
+{
+    min-height: 0;
+}
+
+md-input-container.hide-error .md-errors-spacer
+{
     min-height: 0;
 }
 
@@ -104,4 +111,37 @@ md-card md-card-header md-card-avatar + md-card-header-text .md-title
 {
     font-size:16;
     font-weight:bold;
+}
+
+md-content.content
+{
+    padding-top:20px;
+}
+
+md-content.content > md-whiteframe
+{
+    padding: 10px;
+}
+
+div.preview
+{
+    margin-top:20px;
+    margin-bottom:10px;
+}
+
+div.preview img
+{
+    width:100%;
+}
+
+button.full-width
+{
+    margin-left:0;
+    margin-right:0;
+}
+
+.content > .no-max-height
+{
+    max-height:none;
+    margin-bottom:10px;
 }

@@ -19,4 +19,24 @@ app.service('posts', function($http)
     {
         return $http.post("/posts/" + id + "/vote/down");
     }
+
+    this.upload = function(data)
+    {
+        var formData = new FormData();
+        Object.keys(data).forEach(function(key)
+        {
+            formData.append(key, data[key]);
+        });
+
+        var config = {
+            transformRequest: angular.identity,
+            headers:
+            {
+                "Content-Type": undefined
+            }
+        };
+
+        console.log(formData);
+        return $http.post("/posts", formData, config);
+    }
 });

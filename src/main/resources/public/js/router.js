@@ -31,7 +31,7 @@ app.config(function($routeProvider, $locationProvider)
             if (!auth.isLogged())
             {
                 var path = current.$$route.originalPath;
-                if (path.startsWith("/account") ||path.startsWith("/upload"))
+                if (path.startsWith("/account") || path.startsWith("/upload"))
                 {
                     $location.url("/");
                 }

@@ -49,8 +49,15 @@ public class ImageFacadeImpl implements ImageFacade
         final ImageWriter writer = ImageIO.getImageWritersByFormatName(getFormat(imageType)).next();
         final ImageWriteParam param = writer.getDefaultWriteParam();
 
-        param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-        param.setCompressionQuality(1.0F);
+        try
+        {
+            param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+            param.setCompressionQuality(1.0F);
+        }
+        catch (UnsupportedOperationException exception)
+        {
+            //
+        }
 
         writer.setOutput(ios);
         writer.write(null,new IIOImage(image, null, null), param);
