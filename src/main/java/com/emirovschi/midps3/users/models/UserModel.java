@@ -30,7 +30,7 @@ public class UserModel
     private String password;
 
     @ManyToMany
-    @JoinTable(name="userRoles", joinColumns=@JoinColumn(name="user"), inverseJoinColumns=@JoinColumn(name="role"))
+    @JoinTable(name="userRoles", joinColumns=@JoinColumn(name="\"user\""), inverseJoinColumns=@JoinColumn(name="role"))
     private List<RoleModel> roles;
 
     public long getId()
