@@ -2,12 +2,12 @@ package com.emirovschi.midps3.posts.dto;
 
 import com.emirovschi.midps3.users.dto.UserDTO;
 
-import java.time.LocalTime;
+import java.util.Date;
 
 public class CommentDTO
 {
     private UserDTO user;
-    private LocalTime time;
+    private Date time;
     private String comment;
 
     public UserDTO getUser()
@@ -20,12 +20,12 @@ public class CommentDTO
         this.user = user;
     }
 
-    public LocalTime getTime()
+    public Date getTime()
     {
         return time;
     }
 
-    public void setTime(final LocalTime time)
+    public void setTime(final Date time)
     {
         this.time = time;
     }
