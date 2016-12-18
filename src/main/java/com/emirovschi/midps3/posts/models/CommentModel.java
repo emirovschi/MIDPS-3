@@ -27,7 +27,7 @@ public class CommentModel
     private PostModel post;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user")
+    @JoinColumn(name = "\"user\"")
     private UserModel user;
 
     private LocalTime time;

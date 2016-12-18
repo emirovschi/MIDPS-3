@@ -47,14 +47,14 @@ public class PostModel
 
     @ElementCollection
     @JoinTable(name="votes", joinColumns=@JoinColumn(name="post"))
-    @MapKeyJoinColumn(name="user")
+    @MapKeyJoinColumn(name="\"user\"")
     private Map<UserModel, Integer> votes;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<CommentModel> comments;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user")
+    @JoinColumn(name = "\"user\"")
     private UserModel user;
 
     public long getId()
