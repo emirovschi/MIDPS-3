@@ -18,7 +18,6 @@ app.controller("signup", function($scope, $mdDialog, users, auth)
         {
             if (key.indexOf("$") < 0)
             {
-                console.log($scope.signupForm[key]);
                 $scope.signupForm[key].$error = {};
                 $scope.signupForm[key].$invalid = false;
             }
@@ -39,7 +38,6 @@ app.controller("signup", function($scope, $mdDialog, users, auth)
         },
         function(data)
         {
-            console.log(data);
             data.errors.forEach(function(error)
             {
                 error.arguments.forEach(function(argument)
