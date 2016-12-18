@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.List;
 
@@ -16,7 +17,8 @@ import java.util.List;
 public class UserModel
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="users_id_seq")
+    @SequenceGenerator(name="users_id_seq", sequenceName="users_id_seq", allocationSize=1)
     private long id;
 
     @Column(unique = true, nullable = false)

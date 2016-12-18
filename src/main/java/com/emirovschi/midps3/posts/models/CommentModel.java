@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.time.LocalTime;
 
@@ -17,7 +18,8 @@ import java.time.LocalTime;
 public class CommentModel
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="comments_id_seq")
+    @SequenceGenerator(name="comments_id_seq", sequenceName="comments_id_seq", allocationSize=1)
     private long id;
 
     @ManyToOne(cascade = CascadeType.ALL)

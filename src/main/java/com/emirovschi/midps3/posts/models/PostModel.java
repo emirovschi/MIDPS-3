@@ -16,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.sql.Blob;
 import java.util.List;
@@ -26,7 +27,8 @@ import java.util.Map;
 public class PostModel
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="posts_id_seq")
+    @SequenceGenerator(name="posts_id_seq", sequenceName="posts_id_seq", allocationSize=1)
     private long id;
 
     private String title;
