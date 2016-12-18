@@ -5,6 +5,12 @@ app.controller("account", function($scope, users)
     {
     };
 
+    var updateForm = function()
+    {
+        $scope.isLoading = false;
+        $scope.$emit("userUpdate");
+    };
+
     $scope.update = function()
     {
         $scope.isLoading = false;
@@ -18,14 +24,14 @@ app.controller("account", function($scope, users)
 
         users.updateUser($scope.user).then(function(data)
         {
-            delete $scope.user.password1;
+            delete $scope.user.password;
             delete $scope.user.password2;
-            $scope.isLoading = false;
+            updateForm()
         },
         function(data)
         {
             console.log(data);
-            $scope.isLoading = false;
+            updateForm();
         });
     };
 

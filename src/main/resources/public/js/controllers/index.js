@@ -44,10 +44,12 @@ app.controller("index", function($scope, $mdDialog, auth, users)
         users.getUser().then(function(data)
         {
             $scope.user = data.data;
+            $scope.user.random = Math.random();
         });
     }
 
     auth.listenLogin(updateUser);
+    $scope.$on("userUpdate", updateUser);
 
     auth.checkedLog.then(function()
     {

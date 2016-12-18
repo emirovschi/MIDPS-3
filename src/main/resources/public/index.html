@@ -27,7 +27,7 @@
                     </md-button>
                     <md-menu md-position-mode="target-right target" md-offset="4 -8" md-theme="default">
                         <md-button class="md-toolbar-avatar md-fab md-mini" ng-click="openMenu($mdOpenMenu, $event)">
-                            <img flex ng-src="/users/{{user.id}}/avatar" />
+                            <img flex ng-src="/users/{{user.id}}/avatar?r={{user.random}}" />
                         </md-button>
                         <md-menu-content width="4" class="md-avatar">
                             <md-menu-item>
