@@ -4,6 +4,7 @@ import com.emirovschi.midps3.converters.Converter;
 import com.emirovschi.midps3.exceptions.NotFoundException;
 import com.emirovschi.midps3.exceptions.dto.ErrorDTO;
 import com.emirovschi.midps3.images.dto.ImageDTO;
+import com.emirovschi.midps3.users.dto.UpdateUserDTO;
 import com.emirovschi.midps3.users.dto.UserDTO;
 import com.emirovschi.midps3.users.exceptions.UserAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.PATCH;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
@@ -33,6 +36,7 @@ public class UserController
     private Converter<Exception, ErrorDTO> errorConverter;
 
     @RequestMapping(method = GET)
+    @Secured("ROLE_USER")
     public UserDTO get() throws NotFoundException
     {
         return userFacade.getSessionUser();
@@ -55,9 +59,16 @@ public class UserController
         userFacade.register(user);
     }
 
+    @RequestMapping(method = PATCH)
+    @Secured("ROLE_USER")
+    public void register(@Validated @RequestBody final UpdateUserDTO user) throws UserAlreadyExistsException
+    {
+        userFacade.update(user);
+    }
+
     @ResponseStatus(value= HttpStatus.BAD_REQUEST)
     @ExceptionHandler(UserAlreadyExistsException.class)
-    public ErrorDTO handleBadImageException(UserAlreadyExistsException exception)
+    public ErrorDTO handleUserAlreadyExistsException(UserAlreadyExistsException exception)
     {
         return errorConverter.convert(exception);
     }
