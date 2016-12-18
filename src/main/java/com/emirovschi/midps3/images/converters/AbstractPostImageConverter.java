@@ -7,9 +7,8 @@ import com.emirovschi.midps3.posts.models.PostModel;
 import org.h2.util.IOUtils;
 import org.springframework.http.MediaType;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.sql.Blob;
-import java.sql.SQLException;
 
 public abstract class AbstractPostImageConverter implements Converter<PostModel, ImageDTO>
 {
@@ -20,9 +19,9 @@ public abstract class AbstractPostImageConverter implements Converter<PostModel,
 
         try
         {
-            imageDTO.setImage(IOUtils.readBytesAndClose(getImage(post).getBinaryStream(), -1));
+            imageDTO.setImage(IOUtils.readBytesAndClose(new ByteArrayInputStream(getImage(post)), -1));
         }
-        catch (IOException | SQLException e)
+        catch (IOException e)
         {
             throw new BadImageException();
         }
@@ -32,5 +31,5 @@ public abstract class AbstractPostImageConverter implements Converter<PostModel,
         return imageDTO;
     }
 
-    protected abstract Blob getImage(PostModel post);
+    protected abstract byte[] getImage(PostModel post);
 }

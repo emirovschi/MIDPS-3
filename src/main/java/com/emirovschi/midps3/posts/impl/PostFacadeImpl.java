@@ -2,11 +2,11 @@ package com.emirovschi.midps3.posts.impl;
 
 import com.emirovschi.midps3.converters.Converter;
 import com.emirovschi.midps3.images.ImageFacade;
+import com.emirovschi.midps3.images.dto.ImageDTO;
 import com.emirovschi.midps3.list.dto.PageDTO;
 import com.emirovschi.midps3.posts.PostFacade;
 import com.emirovschi.midps3.posts.PostService;
 import com.emirovschi.midps3.posts.dto.CommentDTO;
-import com.emirovschi.midps3.images.dto.ImageDTO;
 import com.emirovschi.midps3.posts.dto.PostDTO;
 import com.emirovschi.midps3.posts.exceptions.BadImageException;
 import com.emirovschi.midps3.posts.models.PostModel;
@@ -20,10 +20,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import javax.sql.rowset.serial.SerialBlob;
 import javax.transaction.Transactional;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -132,13 +130,13 @@ public class PostFacadeImpl implements PostFacade
             post.setTitle(title);
             post.setTags(tagService.save(tags.stream().distinct().collect(Collectors.toList())));
             post.setImageType(imageType);
-            post.setImage(new SerialBlob(image));
-            post.setPreview(new SerialBlob(imageFacade.getPreview(image, imageType)));
+            post.setImage(image);
+            post.setPreview(imageFacade.getPreview(image, imageType));
             post.setUser(userService.getSessionUser());
             postService.save(post);
             return postConverter.convert(post);
         }
-        catch (SQLException | IOException e)
+        catch (IOException e)
         {
             throw new BadImageException();
         }

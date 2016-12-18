@@ -11,14 +11,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import java.sql.Blob;
 import java.util.List;
 import java.util.Map;
 
@@ -33,11 +31,9 @@ public class PostModel
 
     private String title;
 
-    @Lob
-    private Blob image;
+    private byte[] image;
 
-    @Lob
-    private Blob preview;
+    private byte[] preview;
 
     private String imageType;
 
@@ -72,12 +68,12 @@ public class PostModel
         this.title = title;
     }
 
-    public Blob getImage()
+    public byte[] getImage()
     {
         return image;
     }
 
-    public void setImage(final Blob image)
+    public void setImage(final byte[] image)
     {
         this.image = image;
     }
@@ -132,12 +128,12 @@ public class PostModel
         this.user = user;
     }
 
-    public Blob getPreview()
+    public byte[] getPreview()
     {
         return preview;
     }
 
-    public void setPreview(final Blob preview)
+    public void setPreview(final byte[] preview)
     {
         this.preview = preview;
     }

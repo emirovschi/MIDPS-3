@@ -3,8 +3,8 @@ package com.emirovschi.midps3.posts.converters;
 import com.emirovschi.midps3.converters.Converter;
 import com.emirovschi.midps3.converters.Populator;
 import com.emirovschi.midps3.posts.dto.PostDTO;
-import com.emirovschi.midps3.posts.models.PostModel;
 import com.emirovschi.midps3.posts.exceptions.BadImageException;
+import com.emirovschi.midps3.posts.models.PostModel;
 import com.emirovschi.midps3.users.dto.UserDTO;
 import com.emirovschi.midps3.users.models.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.sql.SQLException;
 
 @Component("postMinimalPopulator")
 public class PostPopulator implements Populator<PostModel, PostDTO>
@@ -30,11 +30,11 @@ public class PostPopulator implements Populator<PostModel, PostDTO>
 
         try
         {
-            final BufferedImage preview = ImageIO.read(source.getPreview().getBinaryStream());
+            final BufferedImage preview = ImageIO.read(new ByteArrayInputStream(source.getPreview()));
             target.setWidth(preview.getWidth());
             target.setHeight(preview.getHeight());
         }
-        catch (IOException | SQLException e)
+        catch (IOException e)
         {
             throw new BadImageException();
         }
