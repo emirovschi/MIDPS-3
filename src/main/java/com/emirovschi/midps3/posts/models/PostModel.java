@@ -2,6 +2,7 @@ package com.emirovschi.midps3.posts.models;
 
 import com.emirovschi.midps3.tags.models.TagModel;
 import com.emirovschi.midps3.users.models.UserModel;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,27 +27,27 @@ import java.util.Map;
 public class PostModel
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="posts_id_seq")
-    @SequenceGenerator(name="posts_id_seq", sequenceName="posts_id_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "posts_id_seq")
+    @GenericGenerator(name = "posts_id_seq", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator")
     private long id;
 
     private String title;
 
-    @Column(columnDefinition="BYTEA NOT NULL")
+    @Column(columnDefinition = "BYTEA NOT NULL")
     private byte[] image;
 
-    @Column(columnDefinition="BYTEA NOT NULL")
+    @Column(columnDefinition = "BYTEA NOT NULL")
     private byte[] preview;
 
     private String imageType;
 
     @ManyToMany
-    @JoinTable(name="postTags", joinColumns=@JoinColumn(name="post"), inverseJoinColumns=@JoinColumn(name="tag"))
+    @JoinTable(name = "postTags", joinColumns = @JoinColumn(name = "post"), inverseJoinColumns = @JoinColumn(name = "tag"))
     private List<TagModel> tags;
 
     @ElementCollection
-    @JoinTable(name="votes", joinColumns=@JoinColumn(name="post"))
-    @MapKeyJoinColumn(name="\"user\"")
+    @JoinTable(name = "votes", joinColumns = @JoinColumn(name = "post"))
+    @MapKeyJoinColumn(name = "\"user\"")
     private Map<UserModel, Integer> votes;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)

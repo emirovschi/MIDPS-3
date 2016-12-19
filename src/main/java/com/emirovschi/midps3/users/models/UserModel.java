@@ -1,5 +1,7 @@
 package com.emirovschi.midps3.users.models;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,8 +19,8 @@ import java.util.List;
 public class UserModel
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="users_id_seq")
-    @SequenceGenerator(name="users_id_seq", sequenceName="users_id_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_id_seq")
+    @GenericGenerator(name = "users_id_seq", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator")
     private long id;
 
     @Column(unique = true, nullable = false)
@@ -30,7 +32,7 @@ public class UserModel
     private String password;
 
     @ManyToMany
-    @JoinTable(name="userRoles", joinColumns=@JoinColumn(name="\"user\""), inverseJoinColumns=@JoinColumn(name="role"))
+    @JoinTable(name = "userRoles", joinColumns = @JoinColumn(name = "\"user\""), inverseJoinColumns = @JoinColumn(name = "role"))
     private List<RoleModel> roles;
 
     public long getId()
