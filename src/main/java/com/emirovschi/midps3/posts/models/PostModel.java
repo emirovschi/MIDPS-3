@@ -4,19 +4,20 @@ import com.emirovschi.midps3.tags.models.TagModel;
 import com.emirovschi.midps3.users.models.UserModel;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import java.sql.Blob;
 import java.util.List;
 import java.util.Map;
 
@@ -25,16 +26,17 @@ import java.util.Map;
 public class PostModel
 {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="posts_id_seq")
+    @SequenceGenerator(name="posts_id_seq", sequenceName="posts_id_seq", allocationSize=1)
     private long id;
 
     private String title;
 
-    @Lob
-    private Blob image;
+    @Column(columnDefinition="BYTEA NOT NULL")
+    private byte[] image;
 
-    @Lob
-    private Blob preview;
+    @Column(columnDefinition="BYTEA NOT NULL")
+    private byte[] preview;
 
     private String imageType;
 
@@ -44,14 +46,14 @@ public class PostModel
 
     @ElementCollection
     @JoinTable(name="votes", joinColumns=@JoinColumn(name="post"))
-    @MapKeyJoinColumn(name="user")
+    @MapKeyJoinColumn(name="\"user\"")
     private Map<UserModel, Integer> votes;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<CommentModel> comments;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user")
+    @JoinColumn(name = "\"user\"")
     private UserModel user;
 
     public long getId()
@@ -69,12 +71,12 @@ public class PostModel
         this.title = title;
     }
 
-    public Blob getImage()
+    public byte[] getImage()
     {
         return image;
     }
 
-    public void setImage(final Blob image)
+    public void setImage(final byte[] image)
     {
         this.image = image;
     }
@@ -129,12 +131,12 @@ public class PostModel
         this.user = user;
     }
 
-    public Blob getPreview()
+    public byte[] getPreview()
     {
         return preview;
     }
 
-    public void setPreview(final Blob preview)
+    public void setPreview(final byte[] preview)
     {
         this.preview = preview;
     }

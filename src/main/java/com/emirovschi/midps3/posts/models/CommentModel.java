@@ -5,18 +5,21 @@ import com.emirovschi.midps3.users.models.UserModel;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import java.time.LocalTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "comments")
 public class CommentModel
 {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="comments_id_seq")
+    @SequenceGenerator(name="comments_id_seq", sequenceName="comments_id_seq", allocationSize=1)
     private long id;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -24,10 +27,10 @@ public class CommentModel
     private PostModel post;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user")
+    @JoinColumn(name = "\"user\"")
     private UserModel user;
 
-    private LocalTime time;
+    private Date time;
 
     private String comment;
 
@@ -51,12 +54,12 @@ public class CommentModel
         this.user = user;
     }
 
-    public LocalTime getTime()
+    public Date getTime()
     {
         return time;
     }
 
-    public void setTime(final LocalTime time)
+    public void setTime(final Date time)
     {
         this.time = time;
     }

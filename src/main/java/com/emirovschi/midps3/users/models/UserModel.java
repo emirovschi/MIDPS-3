@@ -3,10 +3,12 @@ package com.emirovschi.midps3.users.models;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.List;
 
@@ -15,7 +17,8 @@ import java.util.List;
 public class UserModel
 {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="users_id_seq")
+    @SequenceGenerator(name="users_id_seq", sequenceName="users_id_seq", allocationSize=1)
     private long id;
 
     @Column(unique = true, nullable = false)
@@ -27,7 +30,7 @@ public class UserModel
     private String password;
 
     @ManyToMany
-    @JoinTable(name="userRoles", joinColumns=@JoinColumn(name="user"), inverseJoinColumns=@JoinColumn(name="role"))
+    @JoinTable(name="userRoles", joinColumns=@JoinColumn(name="\"user\""), inverseJoinColumns=@JoinColumn(name="role"))
     private List<RoleModel> roles;
 
     public long getId()
