@@ -1,6 +1,7 @@
 package com.emirovschi.midps3.posts.models;
 
 import com.emirovschi.midps3.users.models.UserModel;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -9,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.Date;
 
@@ -18,8 +18,8 @@ import java.util.Date;
 public class CommentModel
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="comments_id_seq")
-    @SequenceGenerator(name="comments_id_seq", sequenceName="comments_id_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comments_id_seq")
+    @GenericGenerator(name = "comments_id_seq", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator")
     private long id;
 
     @ManyToOne(cascade = CascadeType.ALL)

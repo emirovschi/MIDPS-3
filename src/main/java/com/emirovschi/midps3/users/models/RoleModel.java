@@ -1,5 +1,7 @@
 package com.emirovschi.midps3.users.models;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,8 +15,8 @@ import javax.persistence.Table;
 public class RoleModel
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="roles_id_seq")
-    @SequenceGenerator(name="roles_id_seq", sequenceName="roles_id_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roles_id_seq")
+    @GenericGenerator(name = "roles_id_seq", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator")
     private long id;
 
     @Column(nullable = false)
