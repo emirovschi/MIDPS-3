@@ -13,6 +13,11 @@ app.directive('postList', function(posts, auth){
             var page = 0;
             var promise;
 
+            var getWidth = function()
+            {
+                return document.getElementById("post-list-sample").offsetWidth;
+            }
+
             $scope.logged = function()
             {
                 return auth.isLogged();
@@ -53,7 +58,10 @@ app.directive('postList', function(posts, auth){
 
                         response.data.items.forEach(function(e)
                         {
-                            e.size = e.height * 768 / e.width + 81;
+                            e.size = function ()
+                            {
+                                return e.height * getWidth() / e.width + 67;
+                            }
                             $scope.posts.push(e);
                         });
 
