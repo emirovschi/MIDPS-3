@@ -26,8 +26,8 @@
                         </md-button>
                     </div>
                 </md-card-header>
-                <md-progress-circular md-diameter="100"></md-progress-circular>
-                <img ng-src="/posts/{{item.id}}/preview" class="md-card-image" />
+                <md-progress-circular md-diameter="100" ng-if="item.size() > 400"></md-progress-circular>
+                <img ng-src="/posts/{{item.id}}/preview" class="md-card-image"/>
             </md-card>
         </div>
         <div ng-repeat-end="item in posts" ng-show="$last">
