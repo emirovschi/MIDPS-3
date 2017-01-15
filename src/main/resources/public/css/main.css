@@ -41,7 +41,8 @@ md-list-item .md-button:last-of-type
 
 .repeater-container
 {
-    overflow:scroll;
+    overflow-y:scroll;
+    overflow-x:hidden;
 }
 
 .layout-row > md-card.unlimited-height

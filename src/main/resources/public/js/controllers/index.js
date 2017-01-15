@@ -1,4 +1,4 @@
-app.controller("index", function($scope, $mdDialog, auth, users)
+app.controller("index", function($scope, $mdDialog, auth, users, $mdSidenav)
 {
     $scope.logged = function()
     {
@@ -58,4 +58,9 @@ app.controller("index", function($scope, $mdDialog, auth, users)
             updateUser();
         }
     });
+
+    $scope.openSidenav = function()
+    {
+        $mdSidenav('left').open();
+    }
 });
