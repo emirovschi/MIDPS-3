@@ -1,4 +1,4 @@
-var app = angular.module('App', ['ngMaterial', 'ngMessages', 'ngAnimate', 'ngRoute', 'vs-repeat', 'lfNgMdFileInput']);
+var app = angular.module('App', ['ngMaterial', 'ngMessages', 'ngAnimate', 'ngRoute', 'vs-repeat', 'lfNgMdFileInput', 'swipe']);
 
 app.config(function($mdThemingProvider) {
     $mdThemingProvider.theme('default')
