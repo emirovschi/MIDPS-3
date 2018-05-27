@@ -62,6 +62,7 @@ md-card md-progress-circular
 md-card .md-card-image, md-card any
 {
     z-index: 2;
+    width: 100%;
 }
 
 md-dialog md-dialog-actions .md-button.md-flex
