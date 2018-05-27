@@ -1,20 +1,20 @@
-package com.emirovschi.midps3.images.dto;
+package com.emirovschi.midps3.medias.dto;
 
 import org.springframework.http.MediaType;
 
-public class ImageDTO
+public class MediaDTO
 {
-    private byte[] image;
+    private byte[] media;
     private MediaType type;
 
-    public byte[] getImage()
+    public byte[] getMedia()
     {
-        return image;
+        return media;
     }
 
-    public void setImage(final byte[] image)
+    public void setMedia(final byte[] media)
     {
-        this.image = image;
+        this.media = media;
     }
 
     public MediaType getType()

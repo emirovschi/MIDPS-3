@@ -2,18 +2,13 @@ package com.emirovschi.midps3.posts.converters;
 
 import com.emirovschi.midps3.converters.Converter;
 import com.emirovschi.midps3.converters.Populator;
+import com.emirovschi.midps3.medias.MediaFacade;
 import com.emirovschi.midps3.posts.dto.PostDTO;
-import com.emirovschi.midps3.posts.exceptions.BadImageException;
 import com.emirovschi.midps3.posts.models.PostModel;
 import com.emirovschi.midps3.users.dto.UserDTO;
 import com.emirovschi.midps3.users.models.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
 
 @Component("postMinimalPopulator")
 public class PostPopulator implements Populator<PostModel, PostDTO>
@@ -21,22 +16,17 @@ public class PostPopulator implements Populator<PostModel, PostDTO>
     @Autowired
     private Converter<UserModel, UserDTO> userConverter;
 
+    @Autowired
+    private MediaFacade mediaFacade;
+
     @Override
     public void populate(final PostModel source, final PostDTO target)
     {
         target.setTitle(source.getTitle());
         target.setId(source.getId());
         target.setUser(userConverter.convert(source.getUser()));
-
-        try
-        {
-            final BufferedImage preview = ImageIO.read(new ByteArrayInputStream(source.getPreview()));
-            target.setWidth(preview.getWidth());
-            target.setHeight(preview.getHeight());
-        }
-        catch (IOException e)
-        {
-            throw new BadImageException();
-        }
+        target.setWidth(mediaFacade.getWidth(source));
+        target.setHeight(mediaFacade.getHeight(source));
+        target.setType(source.getMediaType().substring(0, source.getMediaType().indexOf('/')));
     }
 }

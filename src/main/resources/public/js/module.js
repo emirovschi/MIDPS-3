@@ -27,4 +27,6 @@ app.config(function($mdThemingProvider) {
     $mdThemingProvider.theme('error')
       .primaryPalette('deep-orange')
       .backgroundPalette('deep-orange');
-  });
+}).config(function($sceDelegateProvider) {
+    $sceDelegateProvider.resourceUrlWhitelist(['**']);
+});

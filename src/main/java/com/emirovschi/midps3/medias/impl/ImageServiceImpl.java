@@ -1,6 +1,6 @@
-package com.emirovschi.midps3.images.impl;
+package com.emirovschi.midps3.medias.impl;
 
-import com.emirovschi.midps3.images.ImageService;
+import com.emirovschi.midps3.medias.ImageService;
 import org.springframework.stereotype.Service;
 
 import java.awt.AlphaComposite;

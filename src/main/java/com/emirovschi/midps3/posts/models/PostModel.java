@@ -17,7 +17,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.List;
 import java.util.Map;
@@ -34,12 +33,12 @@ public class PostModel
     private String title;
 
     @Column(columnDefinition = "BYTEA NOT NULL")
-    private byte[] image;
+    private byte[] media;
 
     @Column(columnDefinition = "BYTEA NOT NULL")
     private byte[] preview;
 
-    private String imageType;
+    private String mediaType;
 
     @ManyToMany
     @JoinTable(name = "postTags", joinColumns = @JoinColumn(name = "post"), inverseJoinColumns = @JoinColumn(name = "tag"))
@@ -72,24 +71,24 @@ public class PostModel
         this.title = title;
     }
 
-    public byte[] getImage()
+    public byte[] getMedia()
     {
-        return image;
+        return media;
     }
 
-    public void setImage(final byte[] image)
+    public void setMedia(final byte[] media)
     {
-        this.image = image;
+        this.media = media;
     }
 
-    public String getImageType()
+    public String getMediaType()
     {
-        return imageType;
+        return mediaType;
     }
 
-    public void setImageType(final String imageType)
+    public void setMediaType(final String mediaType)
     {
-        this.imageType = imageType;
+        this.mediaType = mediaType;
     }
 
     public List<TagModel> getTags()

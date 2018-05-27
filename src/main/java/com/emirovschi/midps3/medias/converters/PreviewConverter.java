@@ -1,4 +1,4 @@
-package com.emirovschi.midps3.images.converters;
+package com.emirovschi.midps3.medias.converters;
 
 import com.emirovschi.midps3.posts.models.PostModel;
 import org.springframework.stereotype.Component;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 public class PreviewConverter extends AbstractPostImageConverter
 {
     @Override
-    protected byte[] getImage(final PostModel post)
+    protected byte[] getMedia(final PostModel post)
     {
         return post.getPreview();
     }

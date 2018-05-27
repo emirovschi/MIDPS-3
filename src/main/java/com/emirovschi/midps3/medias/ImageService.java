@@ -1,4 +1,4 @@
-package com.emirovschi.midps3.images;
+package com.emirovschi.midps3.medias;
 
 import java.awt.image.BufferedImage;
 

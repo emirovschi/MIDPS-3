@@ -16,8 +16,12 @@
                 </md-chip-template>
             </md-chips>
             <div class="preview">
-                <lf-ng-md-file-input lf-files="files" progress accept="image/jpeg, image/png" ng-disabled="isLoading"></lf-ng-md-file-input>
-                <img ng-if="post.fileSelected" ng-src="{{previewUrl}}"/>
+                <lf-ng-md-file-input lf-files="files" progress accept="image/jpeg, image/png, video/*, audio/*" ng-disabled="isLoading"></lf-ng-md-file-input>
+                <img ng-if="previewType === 'image'" ng-src="{{previewUrl}}" class="md-card-image"/>
+                <video ng-if="previewType === 'video'" ng-src="{{previewUrl}}" class="md-card-image" controls>
+                </video>
+                <audio ng-if="previewType === 'audio'" ng-src="{{previewUrl}}" class="md-card-image" controls>
+                </audio>
             </div>
             <md-button class="md-flex md-primary md-raised full-width" ng-disabled="isLoading || notReady" type="submit">Upload</md-button>
         </form>

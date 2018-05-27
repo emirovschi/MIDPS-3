@@ -60,7 +60,7 @@ app.directive('postList', function(posts, auth){
                         {
                             e.size = function ()
                             {
-                                return e.height * getWidth() / e.width + 67;
+                                return (e.type === 'audio' ? 32 : e.height * getWidth() / e.width) + 67;
                             }
                             $scope.posts.push(e);
                         });

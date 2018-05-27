@@ -1,14 +1,14 @@
 package com.emirovschi.midps3.posts.impl;
 
 import com.emirovschi.midps3.converters.Converter;
-import com.emirovschi.midps3.images.ImageFacade;
-import com.emirovschi.midps3.images.dto.ImageDTO;
+import com.emirovschi.midps3.medias.ImageFacade;
+import com.emirovschi.midps3.medias.dto.MediaDTO;
 import com.emirovschi.midps3.list.dto.PageDTO;
 import com.emirovschi.midps3.posts.PostFacade;
 import com.emirovschi.midps3.posts.PostService;
 import com.emirovschi.midps3.posts.dto.CommentDTO;
 import com.emirovschi.midps3.posts.dto.PostDTO;
-import com.emirovschi.midps3.posts.exceptions.BadImageException;
+import com.emirovschi.midps3.posts.exceptions.BadMediaException;
 import com.emirovschi.midps3.posts.models.PostModel;
 import com.emirovschi.midps3.search.Search;
 import com.emirovschi.midps3.search.dto.SearchDTO;
@@ -53,10 +53,10 @@ public class PostFacadeImpl implements PostFacade
     private Converter<Page<PostModel>, PageDTO<PostDTO>> postVotesPageConverter;
 
     @Resource
-    private Converter<PostModel, ImageDTO> imageConverter;
+    private Converter<PostModel, MediaDTO> mediaConverter;
 
     @Resource
-    private Converter<PostModel, ImageDTO> previewConverter;
+    private Converter<PostModel, MediaDTO> previewConverter;
 
     @Override
     public PageDTO<PostDTO> search(final SearchDTO searchDTO, final Pageable pageable)
@@ -85,13 +85,13 @@ public class PostFacadeImpl implements PostFacade
     }
 
     @Override
-    public ImageDTO getPostImage(final long id)
+    public MediaDTO getPostMedia(final long id)
     {
-        return imageConverter.convert(postService.getPostById(id));
+        return mediaConverter.convert(postService.getPostById(id));
     }
 
     @Override
-    public ImageDTO getPostPreview(final long id)
+    public MediaDTO getPostPreview(final long id)
     {
         return previewConverter.convert(postService.getPostById(id));
     }
@@ -122,23 +122,35 @@ public class PostFacadeImpl implements PostFacade
 
     @Override
     @Transactional
-    public PostDTO create(final String title, final List<String> tags, final String imageType, final byte[] image)
+    public PostDTO create(final String title, final List<String> tags, final String mediaType, final byte[] media)
     {
         try
         {
             final PostModel post = new PostModel();
             post.setTitle(title);
             post.setTags(tagService.save(tags.stream().distinct().collect(Collectors.toList())));
-            post.setImageType(imageType);
-            post.setImage(image);
-            post.setPreview(imageFacade.getPreview(image, imageType));
+            post.setMediaType(mediaType);
+            post.setMedia(media);
+            post.setPreview(createPreview(mediaType, media));
             post.setUser(userService.getSessionUser());
             postService.save(post);
             return postConverter.convert(post);
         }
         catch (IOException e)
         {
-            throw new BadImageException();
+            throw new BadMediaException();
+        }
+    }
+
+    private byte[] createPreview(final String mediaType, final byte[] media) throws IOException
+    {
+        switch (mediaType.substring(0, mediaType.indexOf('/')).toLowerCase())
+        {
+            case "video":
+            case "audio":
+                return media;
+            default:
+                return imageFacade.getPreview(media, mediaType);
         }
     }
 

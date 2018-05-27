@@ -27,7 +27,19 @@
                     </div>
                 </md-card-header>
                 <md-progress-circular md-diameter="100" ng-if="item.size() > 400"></md-progress-circular>
-                <img ng-src="/posts/{{item.id}}/preview" class="md-card-image"/>
+                <ANY ng-switch="item.type">
+                    <ANY ng-switch-when="image">
+                        <img ng-src="{{'/posts/' + item.id + '/preview'}}" class="md-card-image"/>
+                    </ANY>
+                    <ANY ng-switch-when="video">
+                        <video ng-src="{{'/posts/' + item.id + '/preview'}}" class="md-card-image" controls>
+                        </video>
+                    </ANY>
+                    <ANY ng-switch-default>
+                        <audio ng-src="{{'/posts/' + item.id + '/preview'}}" class="md-card-image" controls>
+                        </audio>
+                    </ANY>
+                </ANY>
             </md-card>
         </div>
         <div ng-repeat-end="item in posts" ng-show="$last">

@@ -2,7 +2,7 @@ package com.emirovschi.midps3.posts;
 
 import com.emirovschi.midps3.list.dto.PageDTO;
 import com.emirovschi.midps3.posts.dto.CommentDTO;
-import com.emirovschi.midps3.images.dto.ImageDTO;
+import com.emirovschi.midps3.medias.dto.MediaDTO;
 import com.emirovschi.midps3.posts.dto.PostDTO;
 import com.emirovschi.midps3.search.dto.SearchDTO;
 import org.springframework.data.domain.Pageable;
@@ -17,9 +17,9 @@ public interface PostFacade
 
     PostDTO getPost(long id);
 
-    ImageDTO getPostImage(long id);
+    MediaDTO getPostMedia(long id);
 
-    ImageDTO getPostPreview(long id);
+    MediaDTO getPostPreview(long id);
 
     void voteUp(long id);
 
@@ -27,7 +27,7 @@ public interface PostFacade
 
     void comment(long id, CommentDTO comment);
 
-    PostDTO create(String title, List<String> tags, String imageType, byte[] image);
+    PostDTO create(String title, List<String> tags, String mediaType, byte[] media);
 
     void delete(long id);
 }

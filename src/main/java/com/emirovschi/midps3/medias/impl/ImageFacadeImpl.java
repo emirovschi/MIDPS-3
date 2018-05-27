@@ -1,7 +1,7 @@
-package com.emirovschi.midps3.images.impl;
+package com.emirovschi.midps3.medias.impl;
 
-import com.emirovschi.midps3.images.ImageFacade;
-import com.emirovschi.midps3.images.ImageService;
+import com.emirovschi.midps3.medias.ImageFacade;
+import com.emirovschi.midps3.medias.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

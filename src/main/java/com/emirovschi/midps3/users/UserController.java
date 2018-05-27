@@ -3,7 +3,7 @@ package com.emirovschi.midps3.users;
 import com.emirovschi.midps3.converters.Converter;
 import com.emirovschi.midps3.exceptions.NotFoundException;
 import com.emirovschi.midps3.exceptions.dto.ErrorDTO;
-import com.emirovschi.midps3.images.dto.ImageDTO;
+import com.emirovschi.midps3.medias.dto.MediaDTO;
 import com.emirovschi.midps3.users.dto.UpdateUserDTO;
 import com.emirovschi.midps3.users.dto.UserDTO;
 import com.emirovschi.midps3.users.exceptions.UserAlreadyExistsException;
@@ -45,12 +45,12 @@ public class UserController
     @RequestMapping(value = "/{id}/avatar", method = GET, produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
     public ResponseEntity<byte[]> getAvatar(@PathVariable final long id) throws NotFoundException
     {
-        final ImageDTO image = userFacade.getAvatar(id);
+        final MediaDTO image = userFacade.getAvatar(id);
 
         final HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.setContentType(image.getType());
 
-        return new ResponseEntity<>(image.getImage(), responseHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(image.getMedia(), responseHeaders, HttpStatus.OK);
     }
 
     @RequestMapping(method = POST)

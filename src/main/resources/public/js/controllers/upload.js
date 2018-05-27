@@ -4,6 +4,7 @@ app.controller("upload", function($scope, $mdConstant, $location, $q, posts, tag
     $scope.notReady = true;
 
     $scope.previewUrl = "";
+    $scope.previewType = "";
     $scope.files = [];
     $scope.post =
     {
@@ -36,30 +37,34 @@ app.controller("upload", function($scope, $mdConstant, $location, $q, posts, tag
         return deferred.promise;
     };
 
-    $scope.$watch('files.length', function(newVal, oldVal)
+    $scope.$watch('files[0].lfDataUrl', function(newVal, oldVal)
     {
         $scope.post.fileSelected = $scope.files.length > 0;
 
         if ($scope.post.fileSelected)
         {
+            console.log($scope.files[0].lfFile);
             $scope.previewUrl = $scope.files[0].lfDataUrl;
+            var type = $scope.files[0].lfFile.type;
+            $scope.previewType = type.substring(0, type.indexOf('/'));
+        }
+        else
+        {
+            $scope.previewUrl = "";
+            $scope.previewType = "";
         }
     });
 
     $scope.postWatcher = $scope.$watch('post', function(newVal, oldVal)
     {
-        $scope.notReady = false;
-        if ($scope.post.length == 0 || $scope.post.tags.length == 0 || $scope.post.fileSelected == false)
-        {
-            $scope.notReady = true;
-        }
+        $scope.notReady = $scope.post.length == 0 || $scope.post.tags.length == 0 || $scope.post.fileSelected == false;
     }, true);
 
     $scope.upload = function()
     {
         $scope.isLoading = true;
         $scope.postWatcher();
-        $scope.post.image = $scope.files[0].lfFile;
+        $scope.post.media = $scope.files[0].lfFile;
         posts.upload($scope.post).then(function(data)
         {
             $location.url("/post/" + data.data.id);

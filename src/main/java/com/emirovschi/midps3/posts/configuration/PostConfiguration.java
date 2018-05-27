@@ -16,6 +16,8 @@ public class PostConfiguration
         final Set<String> allowedContentTypes = new HashSet<>();
         allowedContentTypes.add(MediaType.IMAGE_JPEG_VALUE);
         allowedContentTypes.add(MediaType.IMAGE_PNG_VALUE);
+        allowedContentTypes.add("video/mp4");
+        allowedContentTypes.add("audio/mp3");
         return allowedContentTypes;
     }
 }

@@ -2,10 +2,10 @@ package com.emirovschi.midps3.posts;
 
 import com.emirovschi.midps3.converters.Converter;
 import com.emirovschi.midps3.exceptions.dto.ErrorDTO;
-import com.emirovschi.midps3.images.dto.ImageDTO;
+import com.emirovschi.midps3.medias.dto.MediaDTO;
 import com.emirovschi.midps3.list.dto.PageDTO;
 import com.emirovschi.midps3.posts.dto.PostDTO;
-import com.emirovschi.midps3.posts.exceptions.BadImageException;
+import com.emirovschi.midps3.posts.exceptions.BadMediaException;
 import com.emirovschi.midps3.search.dto.SearchDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -46,14 +46,14 @@ public class PostController
     @Secured("ROLE_USER")
     @RequestMapping(method = RequestMethod.POST)
     public PostDTO create(@RequestParam final String title, @RequestParam final List<String> tags,
-                          @RequestParam final MultipartFile image) throws IOException, BadImageException
+                          @RequestParam final MultipartFile media) throws IOException, BadMediaException
     {
-        if (!allowedContentTypes.contains(image.getContentType()))
+        if (!allowedContentTypes.contains(media.getContentType()))
         {
-            throw new BadImageException();
+            throw new BadMediaException();
         }
 
-        return postFacade.create(title, tags, image.getContentType(), image.getBytes());
+        return postFacade.create(title, tags, media.getContentType(), media.getBytes());
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)
@@ -74,26 +74,26 @@ public class PostController
         return postFacade.getPost(id);
     }
 
-    @RequestMapping(value = "/{id}/image", method = RequestMethod.GET, produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
-    public ResponseEntity<byte[]> getPostImage(@PathVariable final long id)
+    @RequestMapping(value = "/{id}/media", method = RequestMethod.GET, produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE, "video/mp4", "audio/mp3"})
+    public ResponseEntity<byte[]> getPostMedia(@PathVariable final long id)
     {
-        final ImageDTO image = postFacade.getPostImage(id);
+        final MediaDTO media = postFacade.getPostMedia(id);
 
         final HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.setContentType(image.getType());
+        responseHeaders.setContentType(media.getType());
 
-        return new ResponseEntity<>(image.getImage(), responseHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(media.getMedia(), responseHeaders, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}/preview", method = RequestMethod.GET, produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
+    @RequestMapping(value = "/{id}/preview", method = RequestMethod.GET, produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE, "video/mp4", "audio/mp3"})
     public ResponseEntity<byte[]> getPostPreview(@PathVariable final long id)
     {
-        final ImageDTO image = postFacade.getPostPreview(id);
+        final MediaDTO image = postFacade.getPostPreview(id);
 
         final HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.setContentType(image.getType());
 
-        return new ResponseEntity<>(image.getImage(), responseHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(image.getMedia(), responseHeaders, HttpStatus.OK);
     }
 
     @Secured("ROLE_USER")
@@ -111,8 +111,8 @@ public class PostController
     }
 
     @ResponseStatus(value= HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(BadImageException.class)
-    public ErrorDTO handleBadImageException(BadImageException exception)
+    @ExceptionHandler(BadMediaException.class)
+    public ErrorDTO handleBadMediaException(BadMediaException exception)
     {
         return errorConverter.convert(exception);
     }

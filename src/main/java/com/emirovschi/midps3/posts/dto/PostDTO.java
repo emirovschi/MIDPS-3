@@ -12,6 +12,7 @@ public class PostDTO
     private UserDTO user;
     private Integer width;
     private Integer height;
+    private String type;
 
     public long getId()
     {
@@ -92,5 +93,15 @@ public class PostDTO
     public void setHeight(final Integer height)
     {
         this.height = height;
+    }
+
+    public void setType(final String type)
+    {
+        this.type = type;
+    }
+
+    public String getType()
+    {
+        return type;
     }
 }
